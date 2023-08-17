@@ -15,5 +15,6 @@ namespace ProductsCRUD.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public BitmapImage Image { get; set; }
+        public byte[] ByteImage { get; set; }
     }
 }

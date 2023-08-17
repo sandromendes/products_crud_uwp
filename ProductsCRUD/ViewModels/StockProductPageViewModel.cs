@@ -160,8 +160,8 @@ namespace ProductsCRUD.ViewModels
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
-                    Image = tempImage
-                    
+                    Image = tempImage,
+                    ByteImage = product.Image
                 };
 
                 Products.Add(productDto);

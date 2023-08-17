@@ -43,6 +43,7 @@ namespace ProductsCRUD.Views
             if (e.Parameter is ProductDto product)
             {
                 ViewModel.UpdatedProduct = product;
+                ViewModel.ImageSource = product.Image;
             }
             base.OnNavigatedTo(e);
         }

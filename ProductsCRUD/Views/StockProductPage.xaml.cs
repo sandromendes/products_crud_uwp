@@ -21,7 +21,7 @@ namespace ProductsCRUD.Views
         public void DeleteCommand(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            var item = (Product)button.Tag;
+            var item = (ProductDto)button.Tag;
 
             ViewModel.DeleteCommand(item.Id);
         }

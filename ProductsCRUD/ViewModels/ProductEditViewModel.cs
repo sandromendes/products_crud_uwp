@@ -7,12 +7,17 @@ using ProductsCRUD.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace ProductsCRUD.ViewModels
 {
@@ -24,6 +29,13 @@ namespace ProductsCRUD.ViewModels
         {
             get { return updatedProduct; }
             set { SetProperty(ref updatedProduct, value); }
+        }
+
+        private BitmapImage _imageSource;
+        public BitmapImage ImageSource
+        {
+            get => _imageSource;
+            set => SetProperty(ref _imageSource, value);
         }
 
         private readonly INavigationService navigationService;
@@ -45,7 +57,7 @@ namespace ProductsCRUD.ViewModels
                 Name = UpdatedProduct.Name,
                 Description = UpdatedProduct.Description,
                 Price = UpdatedProduct.Price,
-                //Image = UpdatedProduct.Image
+                Image = UpdatedProduct.ByteImage,
             };
 
             productService.UpdateProduct(product);
@@ -76,6 +88,47 @@ namespace ProductsCRUD.ViewModels
             if (e.Parameter is ProductDto product)
             {
                 UpdatedProduct = product;
+                ImageSource = product.Image;
+            }
+        }
+
+        public async void SelectImage()
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            var imageFile = await picker.PickSingleFileAsync();
+
+            if (imageFile != null)
+            {
+                var bitmapImage = await ConvertFileToBitmapImage(imageFile);
+                ImageSource = bitmapImage;
+                UpdatedProduct.ByteImage = await ConvertStorageFileToByteArray(imageFile);
+            };
+        }
+
+        private async Task<BitmapImage> ConvertFileToBitmapImage(StorageFile file)
+        {
+            var bitmapImage = new BitmapImage();
+            using (var stream = await file.OpenAsync(FileAccessMode.Read))
+            {
+                await bitmapImage.SetSourceAsync(stream);
+            }
+            return bitmapImage;
+        }
+
+        private async Task<byte[]> ConvertStorageFileToByteArray(StorageFile file)
+        {
+            using (var inputStream = await file.OpenSequentialReadAsync())
+            {
+                var readStream = inputStream.AsStreamForRead();
+                byte[] buffer = new byte[readStream.Length];
+                await readStream.ReadAsync(buffer, 0, buffer.Length);
+                return buffer;
             }
         }
     }
