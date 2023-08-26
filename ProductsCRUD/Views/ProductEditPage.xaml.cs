@@ -1,22 +1,11 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models;
-using ProductsCRUD.Services;
+using ProductsCRUD.Services.Images;
 using ProductsCRUD.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ProductsCRUD.Services.Products;
+using ProductsCRUD.Models.Products;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,8 +23,9 @@ namespace ProductsCRUD.Views
 
             var navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
             var productService = ServiceLocator.Current.GetInstance<IProductService>();
+            var imageConversionService = ServiceLocator.Current.GetInstance<IImageConversionService>();
 
-            ViewModel = new ProductEditViewModel(productService, navigationService);
+            ViewModel = new ProductEditViewModel(productService, navigationService, imageConversionService);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

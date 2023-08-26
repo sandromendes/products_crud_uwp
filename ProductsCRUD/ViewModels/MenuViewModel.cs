@@ -50,6 +50,15 @@ namespace ProductsCRUD.ViewModels
                     break;
                 case MenuViewTokens.SALES_REPORT:
                     break;
+                case MenuViewTokens.USER_REGISTER:
+                    navigationService.Navigate(PageTokens.USER_REGISTER, null);
+                    break;
+                case MenuViewTokens.LOGIN:
+                    navigationService.Navigate(PageTokens.LOGIN, null);
+                    break;
+                case MenuViewTokens.MANAGE_USERS:
+                    navigationService.Navigate(PageTokens.USERS_MANAGEMENT, null);
+                    break;
                 default:
                     break;
             }

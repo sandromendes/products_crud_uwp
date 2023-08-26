@@ -1,51 +1,50 @@
 ﻿using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models;
-using ProductsCRUD.Services;
 using ProductsCRUD.Util;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage.Streams;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage.Pickers;
 using ProductsCRUD.Exceptions;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Graphics.Imaging;
+using ProductsCRUD.Util.Labels;
+using ProductsCRUD.Util.Messages.Product;
+using ProductsCRUD.Services.Images;
+using ProductsCRUD.Util.Messages.Images;
+using ProductsCRUD.Models.Products;
+using ProductsCRUD.Services.Products;
+using System.Windows.Input;
 
 namespace ProductsCRUD.ViewModels
 {
     public class StockProductPageViewModel : ViewModelBase
     {
+        private readonly string PRODUCT_IMAGE_NOT_ADDED = "ms-appx:///Assets/LockScreenLogo.scale-200.png";
+        private readonly string PRODUCT_TEMP_IMAGE_NAME = "TemporaryImageForProduct";
+
         private StorageFile _imageFile;
 
-        private string productName;
+        private string _productName;
         public string ProductName
         {
-            get { return productName; }
-            set { SetProperty(ref productName, value); }
+            get { return _productName; }
+            set { SetProperty(ref _productName, value); }
         }
 
-        private string productDescription;
+        private string _productDescription;
         public string ProductDescription
         {
-            get { return productDescription; }
-            set { SetProperty(ref productDescription, value); }
+            get { return _productDescription; }
+            set { SetProperty(ref _productDescription, value); }
         }
 
-        private double productPrice;
+        private double _productPrice;
         public double ProductPrice
         {
-            get { return productPrice; }
-            set { SetProperty(ref productPrice, value); }
+            get { return _productPrice; }
+            set { SetProperty(ref _productPrice, value); }
         }
 
         private BitmapImage _imageSource;
@@ -57,20 +56,19 @@ namespace ProductsCRUD.ViewModels
 
         public ObservableCollection<ProductDto> Products { get; }
 
-        public DelegateCommand SaveProductCommand { get; set; }
-
         private readonly INavigationService navigationService;
-
+        private readonly IImageConversionService imageConversionService;
         private readonly IProductService productService;
 
         public StockProductPageViewModel(IProductService productService,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            IImageConversionService imageConversionService)
         {
             Products = new ObservableCollection<ProductDto>();
             this.productService = productService;
             this.navigationService = navigationService;
+            this.imageConversionService = imageConversionService;
             LoadProducts();
-            SaveProductCommand = new DelegateCommand(SaveProduct);
         }
 
         public StockProductPageViewModel()
@@ -85,25 +83,42 @@ namespace ProductsCRUD.ViewModels
             navigationService.Navigate(PageTokens.PRODUCT_EDITION, updatedProduct);
         }
 
-        public void DeleteCommand(int id) 
+        public async void DeleteCommand(string id) 
         {
-            productService.DeleteProduct(id);
-            ShowRemoveMessage();
-            LoadProducts();
+            var confirmDialog = new ContentDialog
+            {
+                Title = "Confirmar Remoção",
+                Content = "O produto será removido. Deseja continuar?",
+                PrimaryButtonText = "Sim",
+                CloseButtonText = "Não"
+            };
+
+            var result = await confirmDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                productService.DeleteProduct(id);
+                ShowRemoveMessage();
+                LoadProducts();
+            }
+            else
+            {
+                ShowCanceledMessage();
+            }
         }
 
         public async void SaveProduct()
         {
             try
             {
-                ValidateImage();
+                imageConversionService.ValidateImage(_imageFile);
 
                 var product = new Product
                 {
                     Name = ProductName,
                     Description = ProductDescription,
                     Price = ProductPrice,
-                    Image = await ConvertStorageFileToByteArray(_imageFile)
+                    Image = await imageConversionService.ConvertStorageFileToByteArray(_imageFile)
                 };
 
                 // Chama o serviço para salvar o produto no banco de dados SQLite
@@ -115,7 +130,7 @@ namespace ProductsCRUD.ViewModels
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,  
-                    Image = await ConvertFileToBitmapImage(_imageFile)
+                    Image = await imageConversionService.ConvertFileToBitmapImage(_imageFile)
                 });
 
                 ShowAddedProductMessage();
@@ -140,9 +155,9 @@ namespace ProductsCRUD.ViewModels
             var products = productService.GetProducts();
 
             var emptyProductFile = await StorageFile
-                .GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/LockScreenLogo.scale-200.png"));
+                .GetFileFromApplicationUriAsync(new Uri(PRODUCT_IMAGE_NOT_ADDED));
 
-            var emptyProductImage = await ConvertFileToBitmapImage(emptyProductFile);
+            var emptyProductImage = await imageConversionService.ConvertFileToBitmapImage(emptyProductFile);
 
             Products.Clear();
             foreach (var product in products)
@@ -152,7 +167,10 @@ namespace ProductsCRUD.ViewModels
                 if (product.Image == null)
                     tempImage = emptyProductImage;
                 else
-                    tempImage = await ConvertFileToBitmapImage(await ConvertBytesToStorageFile(product.Image));
+                {
+                    var storageFile = await imageConversionService.ConvertBytesToStorageFile(product.Image, PRODUCT_TEMP_IMAGE_NAME);
+                    tempImage = await imageConversionService.ConvertFileToBitmapImage(storageFile);
+                }
 
                 var productDto = new ProductDto
                 {
@@ -170,18 +188,11 @@ namespace ProductsCRUD.ViewModels
 
         public async void SelectImage()
         {
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".jpeg");
-            picker.FileTypeFilter.Add(".png");
-
-            var imageFile = await picker.PickSingleFileAsync();
+            var imageFile = await imageConversionService.PickImage();
 
             if (imageFile != null)
             {
-                var bitmapImage = await ConvertFileToBitmapImage(imageFile);
+                var bitmapImage = await imageConversionService.ConvertFileToBitmapImage(imageFile);
                 ImageSource = bitmapImage;
             };
 
@@ -192,9 +203,9 @@ namespace ProductsCRUD.ViewModels
         {
             var dialog = new ContentDialog
             {
-                Title = "Imagem inválida",
-                Content = $"Selecione outra imagem!",
-                CloseButtonText = "OK"
+                Title = ImageMessages.INVALID_IMAGE_TITLE,
+                Content = ImageMessages.INVALID_IMAGE_CONTENT,
+                CloseButtonText = ButtonLabel.CLOSE_OK
             };
             await dialog.ShowAsync();
         }
@@ -203,9 +214,22 @@ namespace ProductsCRUD.ViewModels
         {
             var dialog = new ContentDialog
             {
-                Title = "Produto Removido",
-                Content = $"Produto removido com sucesso!",
-                CloseButtonText = "OK"
+                Title = ProductMessages.PRODUCT_REMOVED_TITLE,
+                Content = ProductMessages.PRODUCT_REMOVED_CONTENT,
+                
+                CloseButtonText = ButtonLabel.CLOSE_OK
+            };
+            await dialog.ShowAsync();
+        }
+
+        private async void ShowCanceledMessage()
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Não executado",
+                Content = "Ação cancelada pelo usuário",
+
+                CloseButtonText = ButtonLabel.CLOSE_OK
             };
             await dialog.ShowAsync();
         }
@@ -214,63 +238,11 @@ namespace ProductsCRUD.ViewModels
         {
             var dialog = new ContentDialog
             {
-                Title = "Produto Adicionado",
-                Content = $"Produto adicionado com sucesso!",
-                CloseButtonText = "OK"
+                Title = ProductMessages.PRODUCT_CREATED_TITLE,
+                Content = ProductMessages.PRODUCT_CREATED_CONTENT,
+                CloseButtonText = ButtonLabel.CLOSE_OK
             };
             await dialog.ShowAsync();
-        }
-
-        private async Task<byte[]> ConvertStorageFileToByteArray(StorageFile file)
-        {
-            using (var inputStream = await file.OpenSequentialReadAsync())
-            {
-                var readStream = inputStream.AsStreamForRead();
-                byte[] buffer = new byte[readStream.Length];
-                await readStream.ReadAsync(buffer, 0, buffer.Length);
-                return buffer;
-            }
-        }
-
-        private async Task<StorageFile> ConvertBytesToStorageFile(byte[] bytes)
-        {
-            StorageFile tempFile = await ApplicationData
-                .Current
-                .TemporaryFolder
-                .CreateFileAsync("TemporaryImageForProduct", CreationCollisionOption.GenerateUniqueName);
-
-            using (IRandomAccessStream stream = await tempFile.OpenAsync(FileAccessMode.ReadWrite))
-            {
-                using (DataWriter writer = new DataWriter(stream))
-                {
-                    writer.WriteBytes(bytes);
-                    await writer.StoreAsync();
-                }
-            }
-
-            return tempFile;
-        }
-
-        private async void ValidateImage()
-        {
-            var byteImage = await ConvertStorageFileToByteArray(_imageFile);
-
-            if (byteImage == null) return;
-
-            if (byteImage.Length <= 1024 * 1024) // 1 MB
-                return;
-
-            throw new InvalidImageException();
-        }
-
-        private async Task<BitmapImage> ConvertFileToBitmapImage(StorageFile file)
-        {
-            var bitmapImage = new BitmapImage();
-            using (var stream = await file.OpenAsync(FileAccessMode.Read))
-            {
-                await bitmapImage.SetSourceAsync(stream);
-            }
-            return bitmapImage;
         }
     }
 }

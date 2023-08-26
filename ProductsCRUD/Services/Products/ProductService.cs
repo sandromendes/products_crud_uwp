@@ -1,8 +1,8 @@
-﻿using ProductsCRUD.Models;
-using ProductsCRUD.Repositories;
+﻿using ProductsCRUD.Models.Products;
+using ProductsCRUD.Repositories.Products;
 using System.Collections.Generic;
 
-namespace ProductsCRUD.Services
+namespace ProductsCRUD.Services.Products
 {
     public class ProductService : IProductService
     {
@@ -23,7 +23,7 @@ namespace ProductsCRUD.Services
             return productRepository.GetProducts();
         }
 
-        public Product GetProductById(int id)
+        public Product GetProductById(string id)
         {
             return productRepository.GetProductById(id);
         }
@@ -33,7 +33,7 @@ namespace ProductsCRUD.Services
             productRepository.UpdateProduct(updatedProduct);
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(string id)
         {
             productRepository.DeleteProduct(id);
         }

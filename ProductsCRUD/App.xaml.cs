@@ -1,11 +1,17 @@
 ﻿using Prism.Unity.Windows;
-using ProductsCRUD.Repositories;
-using ProductsCRUD.Services;
 using ProductsCRUD.Util;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using ProductsCRUD.Services.Images;
+using ProductsCRUD.Services.Users;
+using ProductsCRUD.Repositories.Users;
+using ProductsCRUD.DbContext;
+using Microsoft.Practices.Unity;
+using ProductsCRUD.Services.Products;
+using ProductsCRUD.Repositories.Products;
+using ProductsCRUD.Services.Token;
 
 namespace ProductsCRUD
 {
@@ -36,7 +42,15 @@ namespace ProductsCRUD
             base.ConfigureContainer();
 
             RegisterTypeIfMissing(typeof(IProductService), typeof(ProductService), true);
+            RegisterTypeIfMissing(typeof(IUserService), typeof(UserService), true);
+            RegisterTypeIfMissing(typeof(IImageConversionService), typeof(ImageConversionService), true);
+            RegisterTypeIfMissing(typeof(ITokenService), typeof(TokenService), true);
+            
             RegisterTypeIfMissing(typeof(IProductRepository), typeof(ProductRepository), true);
+            RegisterTypeIfMissing(typeof(IUserRepository), typeof(UserRepository), true);
+
+            var dbContext = new AppDbContext();
+            Container.RegisterInstance(dbContext);
         }
     }
 }

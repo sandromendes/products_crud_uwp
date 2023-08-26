@@ -17,6 +17,12 @@ namespace ProductsCRUD.Util
         [Description("OrdersReport")]
         ORDERS_REPORT,
         [Description("SalesReport")]
-        SALES_REPORT
+        SALES_REPORT,        
+        [Description("UsersRegister")]
+        USER_REGISTER,        
+        [Description("Login")]
+        LOGIN,
+        [Description("ManageUsers")]
+        MANAGE_USERS
     }
 }

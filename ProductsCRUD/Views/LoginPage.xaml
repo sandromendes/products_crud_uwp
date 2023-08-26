@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="ProductsCRUD.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductsCRUD.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:prism="using:Prism.Windows.Mvvm" 
+    prism:ViewModelLocator.AutoWireViewModel="True"    
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox PlaceholderText="Email" Width="200" Margin="5" x:Name="EmailTextBox" Text="{x:Bind ViewModel.Email, Mode=TwoWay}"/>
+            <PasswordBox PlaceholderText="Senha" Width="200" Margin="5" x:Name="PasswordBox" Password="{x:Bind ViewModel.Password, Mode=TwoWay}"/>
+            <TextBlock Text="{x:Bind ViewModel.ErrorMessage}" Foreground="Red" Margin="5" />
+            <Button Content="Login" Width="100" Margin="5" Click="{x:Bind ViewModel.Login, Mode=OneTime}" />
+        </StackPanel>
+    </Grid>
+</Page>

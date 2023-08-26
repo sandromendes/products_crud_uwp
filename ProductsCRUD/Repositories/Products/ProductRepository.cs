@@ -1,23 +1,18 @@
-﻿using ProductsCRUD.Models;
+﻿using ProductsCRUD.DbContext;
+using ProductsCRUD.Models.Products;
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProductsCRUD.Repositories
+namespace ProductsCRUD.Repositories.Products
 {
     public class ProductRepository : IProductRepository
     {
         private readonly SQLiteConnection database;
 
-        public ProductRepository()
+        public ProductRepository(AppDbContext appDbContext)
         {
-            // Configure o caminho e o nome do arquivo do banco de dados SQLite
-            string dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Products.db");
-            database = new SQLiteConnection(dbPath);
+            database = appDbContext.Connection;
             database.CreateTable<Product>();
         }
 
@@ -25,7 +20,10 @@ namespace ProductsCRUD.Repositories
         {
             var productDb = GetProductById(newProduct.Id);
             if (productDb == null)
+            {
+                newProduct.Id = Guid.NewGuid().ToString();
                 database.Insert(newProduct);
+            }
         }
 
         public List<Product> GetProducts()
@@ -33,7 +31,7 @@ namespace ProductsCRUD.Repositories
             return database.Table<Product>().ToList();
         }
 
-        public Product GetProductById(int id)
+        public Product GetProductById(string id)
         {
             return database.Table<Product>().Where(a => a.Id == id).FirstOrDefault();
         }
@@ -45,7 +43,7 @@ namespace ProductsCRUD.Repositories
                 database.Update(updatedProduct);
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(string id)
         {
             var product = GetProductById(id);
             if(product != null)
