@@ -7,7 +7,8 @@ namespace ProductsCRUD.Services.Users
     public interface IUserService
     {
         void RegisterUser(User user);
-        bool ValidateCredentials(string email, string password);
+        bool TryLogin(string email, string password, out bool isSuccess);
+        void Logout();
         User GetUserByEmail(string email);
         List<User> GetAllUsers();
         User GetUserById(string id);

@@ -1,14 +1,18 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Microsoft.Practices.ServiceLocation;
+using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
+using ProductsCRUD.Exceptions;
+using ProductsCRUD.Models.Auth;
 using ProductsCRUD.Services.Users;
+using ProductsCRUD.Util;
 using ProductsCRUD.Util.Labels;
 using System;
-using System.Windows.Input;
+using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
 namespace ProductsCRUD.ViewModels
 {
-    public class LoginPageViewModel : BindableBase
+    public class LoginPageViewModel : ViewModelBase
     {
         private string _email;
         public string Email
@@ -40,15 +44,13 @@ namespace ProductsCRUD.ViewModels
 
         public void Login()
         {
-            if (userService.ValidateCredentials(Email, Password))
+            if (userService.TryLogin(Email, Password, out _))
             {
                 var user = userService.GetUserByEmail(Email);
                 ShowMessage("Sucesso!", $"Seja bem vindo(a) {user.FirstName} {user.LastName}");
             }
             else
-            {
-                ErrorMessage = "Usuário e/ou senha inválidos.";
-            }
+                ShowMessage("Acesso negado!", $"Usuário e/ou senha inválidos.");
         }
 
         private async void ShowMessage(string title, string content)

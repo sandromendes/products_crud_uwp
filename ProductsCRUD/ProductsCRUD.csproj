@@ -122,26 +122,61 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\AppDbContext.cs" />
     <Compile Include="Exceptions\InvalidImageException.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductDto.cs" />
+    <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\UserNotLoggedException.cs" />
+    <Compile Include="Models\Auth\AuthDto.cs" />
+    <Compile Include="Models\Products\Product.cs" />
+    <Compile Include="Models\Products\ProductDto.cs" />
+    <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IProductRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Services\IProductService.cs" />
-    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Repositories\Products\IProductRepository.cs" />
+    <Compile Include="Repositories\Products\ProductRepository.cs" />
+    <Compile Include="Repositories\Users\IUserRepository.cs" />
+    <Compile Include="Repositories\Users\UserRepository.cs" />
+    <Compile Include="Services\AuthManagerService.cs" />
+    <Compile Include="Services\IAuthManagerService.cs" />
+    <Compile Include="Services\Images\IImageConversionService.cs" />
+    <Compile Include="Services\Images\ImageConversionService.cs" />
+    <Compile Include="Services\Navigation\INavigationManager.cs" />
+    <Compile Include="Services\Navigation\NavigationManager.cs" />
+    <Compile Include="Services\Products\IProductService.cs" />
+    <Compile Include="Services\Products\ProductService.cs" />
+    <Compile Include="Services\Token\ITokenService.cs" />
+    <Compile Include="Services\Token\TokenService.cs" />
+    <Compile Include="Services\Users\IUserService.cs" />
+    <Compile Include="Services\Users\UserService.cs" />
+    <Compile Include="Util\AppConstants.cs" />
+    <Compile Include="Util\EncryptionUtils.cs" />
     <Compile Include="Util\EnumUtil.cs" />
+    <Compile Include="Util\Labels\ButtonLabel.cs" />
     <Compile Include="Util\MenuViewTokens.cs" />
+    <Compile Include="Util\Messages\Images\ImageMessages.cs" />
+    <Compile Include="Util\Messages\Product\ProductMessages.cs" />
     <Compile Include="Util\PageTokens.cs" />
+    <Compile Include="Infra\Session\SessionCache.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
-    <Compile Include="ViewModels\ProductEditViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductEditViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\StockProductPageViewModel.cs" />
+    <Compile Include="ViewModels\Products\StockProductPageViewModel.cs" />
+    <Compile Include="ViewModels\Users\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Users\ManageUsersPageViewModel.cs" />
+    <Compile Include="ViewModels\Users\RegisterUserPageViewModel.cs" />
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageUsersPage.xaml.cs">
+      <DependentUpon>ManageUsersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductEditPage.xaml.cs">
       <DependentUpon>ProductEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegisterUserPage.xaml.cs">
+      <DependentUpon>RegisterUserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SalesPage.xaml.cs">
       <DependentUpon>SalesPage.xaml</DependentUpon>
@@ -177,11 +212,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageUsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegisterUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +249,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.1</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens">
+      <Version>6.32.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
@@ -213,6 +263,9 @@
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.8.116</Version>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt">
+      <Version>6.32.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

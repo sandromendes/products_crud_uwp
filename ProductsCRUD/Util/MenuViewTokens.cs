@@ -21,7 +21,9 @@ namespace ProductsCRUD.Util
         [Description("UsersRegister")]
         USER_REGISTER,        
         [Description("Login")]
-        LOGIN,
+        LOGIN,        
+        [Description("Logout")]
+        LOGOUT,
         [Description("ManageUsers")]
         MANAGE_USERS
     }
