@@ -6,6 +6,7 @@ using ProductsCRUD.Services.Token;
 using ProductsCRUD.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ProductsCRUD.Services.Users
 {
@@ -28,15 +29,19 @@ namespace ProductsCRUD.Services.Users
         {
             return userRepository.GetAllUsers();
         }
+        public User GetUserById(string id)
+        {
+            return userRepository.GetUserById(id);
+        }
 
         public User GetUserByEmail(string email)
         {
             return userRepository.GetUserByEmail(email);
         }
 
-        public User GetUserById(string id)
+        public bool Exists(Expression<Func<User, bool>> predicate)
         {
-            return userRepository.GetUserById(id);
+            return userRepository.Exists(predicate);
         }
 
         public void RegisterUser(User user)
@@ -85,6 +90,24 @@ namespace ProductsCRUD.Services.Users
                 sessionCache.Remove(AppConstants.TOKEN_KEY);
             else
                 throw new UserNotLoggedException();
+        }
+
+        public void CreateSuperUserIfDoesntExists()
+        {
+            if(!Exists(a => a.FirstName == "admin"))
+            {
+                var user = new User
+                {
+                    CPF = string.Empty,
+                    Email = "admin@admin",
+                    FirstName = "admin",
+                    LastName = "admin",
+                    PasswordHash = EncryptionUtils.Encrypt("superuser"),
+                    PhoneNumber = string.Empty
+                };
+
+                RegisterUser(user);
+            }
         }
     }
 }

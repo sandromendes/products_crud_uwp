@@ -1,13 +1,15 @@
-﻿using Prism.Events;
-using Prism.Windows.Mvvm;
+﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models.Auth;
 using ProductsCRUD.Models.Users;
 using ProductsCRUD.Services;
 using ProductsCRUD.Services.Users;
 using ProductsCRUD.Util;
+using ProductsCRUD.Util.Labels;
+using ProductsCRUD.Util.Messages.Users;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
 
 namespace ProductsCRUD.ViewModels
 {
@@ -42,10 +44,29 @@ namespace ProductsCRUD.ViewModels
                 LoadUsers();
         }
 
-        public void RemoveUser(string userId)
+        public async void RemoveUser(string userId)
         {
-            userService.RemoveUser(userId);
-            LoadUsers();
+            var confirmDialog = new ContentDialog
+            {
+                Title = "Confirmar Remoção",
+                Content = "O usuário será removido. Deseja continuar?",
+                PrimaryButtonText = "Sim",
+                CloseButtonText = "Não"
+            };
+
+            var result = await confirmDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                userService.RemoveUser(userId);
+                ShowRemoveMessage();
+                LoadUsers();
+            }
+            else
+            {
+                ShowCanceledMessage();
+            }
+
         }
 
         public void UpdateUser(string userId)
@@ -63,6 +84,30 @@ namespace ProductsCRUD.ViewModels
             {
                 Users.Add(user);
             }
+        }
+
+        private async void ShowRemoveMessage()
+        {
+            var dialog = new ContentDialog
+            {
+                Title = UserMessages.USER_REMOVED_TITLE,
+                Content = UserMessages.USER_REMOVED_CONTENT,
+
+                CloseButtonText = ButtonLabel.CLOSE_OK
+            };
+            await dialog.ShowAsync();
+        }
+
+        private async void ShowCanceledMessage()
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Não executado",
+                Content = "Ação cancelada pelo usuário",
+
+                CloseButtonText = ButtonLabel.CLOSE_OK
+            };
+            await dialog.ShowAsync();
         }
     }
 }

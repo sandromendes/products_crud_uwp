@@ -1,5 +1,4 @@
-﻿using Prism.Commands;
-using Prism.Windows.Mvvm;
+﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using ProductsCRUD.Util;
 using System;
@@ -10,12 +9,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using ProductsCRUD.Exceptions;
 using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Util.Messages.Product;
 using ProductsCRUD.Services.Images;
 using ProductsCRUD.Util.Messages.Images;
 using ProductsCRUD.Models.Products;
 using ProductsCRUD.Services.Products;
-using System.Windows.Input;
+using ProductsCRUD.Util.Messages.Products;
 
 namespace ProductsCRUD.ViewModels
 {

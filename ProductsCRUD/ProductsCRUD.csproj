@@ -154,6 +154,7 @@
     <Compile Include="Util\MenuViewTokens.cs" />
     <Compile Include="Util\Messages\Images\ImageMessages.cs" />
     <Compile Include="Util\Messages\Product\ProductMessages.cs" />
+    <Compile Include="Util\Messages\Users\UserMessages.cs" />
     <Compile Include="Util\PageTokens.cs" />
     <Compile Include="Infra\Session\SessionCache.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />

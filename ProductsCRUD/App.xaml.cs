@@ -37,6 +37,9 @@ namespace ProductsCRUD
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             var navigationManager = ServiceLocator.Current.GetInstance<INavigationManager>();
+            
+            var userService = ServiceLocator.Current.GetInstance<IUserService>();
+            userService.CreateSuperUserIfDoesntExists();
 
             if(navigationManager.IsValidAuth())
                 NavigationService.Navigate(PageTokens.PRODUCT_MAIN, null);

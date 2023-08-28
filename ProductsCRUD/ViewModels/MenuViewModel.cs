@@ -63,8 +63,7 @@ namespace ProductsCRUD.ViewModels
                         navigationManager.Logoff();
                         break;
                     case MenuViewTokens.MANAGE_USERS:
-
-                            navigationService.Navigate(PageTokens.USERS_MANAGEMENT, null);
+                        navigationService.Navigate(PageTokens.USERS_MANAGEMENT, null);
                         break;
                     default:
                         break;

@@ -5,7 +5,7 @@ using ProductsCRUD.Services.Images;
 using ProductsCRUD.Services.Products;
 using ProductsCRUD.Util;
 using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Util.Messages.Product;
+using ProductsCRUD.Util.Messages.Products;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

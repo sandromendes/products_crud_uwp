@@ -1,13 +1,9 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using Prism.Windows.Mvvm;
+﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Exceptions;
-using ProductsCRUD.Models.Auth;
 using ProductsCRUD.Services.Users;
 using ProductsCRUD.Util;
 using ProductsCRUD.Util.Labels;
 using System;
-using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
 namespace ProductsCRUD.ViewModels
@@ -36,10 +32,13 @@ namespace ProductsCRUD.ViewModels
         }
 
         private readonly IUserService userService;
+        private readonly INavigationService navigationService;
 
-        public LoginPageViewModel(IUserService userService)
+        public LoginPageViewModel(IUserService userService,
+            INavigationService navigationService)
         {
             this.userService = userService;
+            this.navigationService = navigationService;
         }
 
         public void Login()
@@ -48,6 +47,7 @@ namespace ProductsCRUD.ViewModels
             {
                 var user = userService.GetUserByEmail(Email);
                 ShowMessage("Sucesso!", $"Seja bem vindo(a) {user.FirstName} {user.LastName}");
+                navigationService.Navigate(PageTokens.PRODUCT_MAIN, null);
             }
             else
                 ShowMessage("Acesso negado!", $"Usuário e/ou senha inválidos.");

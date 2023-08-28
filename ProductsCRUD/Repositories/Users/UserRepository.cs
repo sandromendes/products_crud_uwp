@@ -4,6 +4,7 @@ using ProductsCRUD.Models.Users;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ProductsCRUD.Repositories.Users
 {
@@ -60,14 +61,21 @@ namespace ProductsCRUD.Repositories.Users
 
         public void RemoveUser(string userId)
         {
-            if(GetUserById(userId) != null)
-                database.Delete(userId);
+            var user = GetUserById(userId);
+            if (user != null)
+                database.Delete(user);
         }
 
         public void UpdateUser(User user)
         {
-            if(GetUserById(user.Id) != null)
+            var userDb = GetUserById(user.Id);
+            if (userDb != null)
                 database.Update(user);
+        }
+
+        public bool Exists(Expression<Func<User, bool>> predicate)
+        {
+            return database.Table<User>().FirstOrDefault(predicate) != null;
         }
     }
 }
