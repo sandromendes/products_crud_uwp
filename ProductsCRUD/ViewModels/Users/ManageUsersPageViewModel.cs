@@ -75,10 +75,10 @@ namespace ProductsCRUD.ViewModels
             LoadUsers();
         }
 
-        private void LoadUsers()
+        private async void LoadUsers()
         {
             Users.Clear();
-            var allUsers = userService.GetAllUsers();
+            var allUsers = await userService.GetAllUsers();
 
             foreach (var user in allUsers)
             {

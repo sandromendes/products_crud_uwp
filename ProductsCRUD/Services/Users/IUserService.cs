@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Services.Users
 {
@@ -12,8 +13,8 @@ namespace ProductsCRUD.Services.Users
         bool Exists(Expression<Func<User, bool>> predicate);
         void Logout();
         User GetUserByEmail(string email);
-        List<User> GetAllUsers();
-        User GetUserById(string id);
+        Task<List<User>> GetAllUsers();
+        Task<User> GetUserById(string id);
         void RemoveUser(string userId);
         void UpdateUser(User user);
         void CreateSuperUserIfDoesntExists();

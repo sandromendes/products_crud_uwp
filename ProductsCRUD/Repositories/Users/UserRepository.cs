@@ -3,22 +3,21 @@ using ProductsCRUD.Exceptions;
 using ProductsCRUD.Models.Users;
 using SQLite;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ProductsCRUD.Repositories.Users
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         private readonly SQLiteConnection database;
 
-        public UserRepository(AppDbContext appDbContext)
+        public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
             database = appDbContext.Connection;
             database.CreateTable<User>();
         }
 
-        public void AddUser(User user)
+        public new void Add(User user)
         {
             var userDb = GetUserByCompositeKey(user);
             if (userDb == null)
@@ -47,30 +46,6 @@ namespace ProductsCRUD.Repositories.Users
         public User GetUserByCompositeKey(User user)
         {
             return database.Table<User>().FirstOrDefault(u => u.Id == user.Id || u.Email == user.Email || u.CPF == user.CPF);
-        }
-
-        public List<User> GetAllUsers()
-        {
-            return database.Table<User>().ToList();
-        }
-
-        public User GetUserById(string id)
-        {
-            return database.Table<User>().FirstOrDefault(u => u.Id == id);
-        }
-
-        public void RemoveUser(string userId)
-        {
-            var user = GetUserById(userId);
-            if (user != null)
-                database.Delete(user);
-        }
-
-        public void UpdateUser(User user)
-        {
-            var userDb = GetUserById(user.Id);
-            if (userDb != null)
-                database.Update(user);
         }
 
         public bool Exists(Expression<Func<User, bool>> predicate)

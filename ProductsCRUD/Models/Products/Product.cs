@@ -1,10 +1,9 @@
 ﻿using SQLite;
-using System;
 using MaxLengthAttribute = SQLite.MaxLengthAttribute;
 
 namespace ProductsCRUD.Models.Products
 {
-    public class Product
+    public class Product : IEntity
     {
         [PrimaryKey]
         public string Id { get; set; }

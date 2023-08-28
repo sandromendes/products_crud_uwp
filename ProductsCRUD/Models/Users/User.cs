@@ -2,7 +2,7 @@
 
 namespace ProductsCRUD.Models.Users
 {
-    public class User
+    public class User : IEntity
     {
         [PrimaryKey]
         public string Id { get; set; }

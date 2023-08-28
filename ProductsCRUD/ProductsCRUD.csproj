@@ -127,10 +127,13 @@
     <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
     <Compile Include="Exceptions\UserNotLoggedException.cs" />
     <Compile Include="Models\Auth\AuthDto.cs" />
+    <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\ProductDto.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\Products\IProductRepository.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Repositories\Users\IUserRepository.cs" />

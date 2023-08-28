@@ -7,6 +7,7 @@ using ProductsCRUD.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Services.Users
 {
@@ -25,13 +26,13 @@ namespace ProductsCRUD.Services.Users
             this.sessionCache = sessionCache;
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
-            return userRepository.GetAllUsers();
+            return await userRepository.GetAll();
         }
-        public User GetUserById(string id)
+        public async Task<User> GetUserById(string id)
         {
-            return userRepository.GetUserById(id);
+            return await userRepository.Get(id);
         }
 
         public User GetUserByEmail(string email)
@@ -46,17 +47,17 @@ namespace ProductsCRUD.Services.Users
 
         public void RegisterUser(User user)
         {
-            userRepository.AddUser(user);
+            userRepository.Add(user);
         }
 
         public void RemoveUser(string userId)
         {
-            userRepository.RemoveUser(userId);
+            userRepository.Delete(userId);
         }
 
         public void UpdateUser(User user)
         {
-            userRepository.UpdateUser(user);
+            userRepository.Update(user);
         }
 
         public bool TryLogin(string email, string password, out bool isSuccess)
