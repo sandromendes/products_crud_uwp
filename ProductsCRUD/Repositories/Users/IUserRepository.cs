@@ -1,14 +1,16 @@
 ﻿using ProductsCRUD.Models.Users;
 using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Repositories.Users
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        new void Add(User user);
-        User GetUserByEmail(string email);
-        bool Exists(Expression<Func<User, bool>> predicate);
-        User GetUserByCompositeKey(User user);
+        new Task Add(User user);
+        Task<User> Get(Expression<Func<User, bool>> predicate);
+        Task<User> GetUserByEmail(string email);
+        Task<bool> Exists(Expression<Func<User, bool>> predicate);
+        Task<User> GetUserByCompositeKey(User user);
     }
 }

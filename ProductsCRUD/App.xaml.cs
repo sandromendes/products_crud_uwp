@@ -42,7 +42,7 @@ namespace ProductsCRUD
             userService.CreateSuperUserIfDoesntExists();
 
             if(navigationManager.IsValidAuth())
-                NavigationService.Navigate(PageTokens.PRODUCT_MAIN, null);
+                NavigationService.Navigate(PageTokens.HomePage.MAIN, null);
 
             return Task.CompletedTask;
         }

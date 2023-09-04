@@ -57,7 +57,7 @@ namespace ProductsCRUD.ViewModels
 
             productService.UpdateProduct(product);
             ShowSaveMessage();
-            navigationService.Navigate(PageTokens.PRODUCT_MAIN, null);
+            navigationService.Navigate(PageTokens.ProductsPage.MAIN, null);
         }
 
         public void CancelEdition()

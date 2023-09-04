@@ -4,26 +4,27 @@ using ProductsCRUD.Models.Users;
 using SQLite;
 using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Repositories.Users
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly SQLiteConnection database;
+        private readonly SQLiteAsyncConnection database;
 
         public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            database = appDbContext.Connection;
-            database.CreateTable<User>();
+            database = appDbContext.AsyncConnection;
+            database.CreateTableAsync<User>();
         }
 
-        public new void Add(User user)
+        public async new Task Add(User user)
         {
-            var userDb = GetUserByCompositeKey(user);
+            var userDb = await GetUserByCompositeKey(user);
             if (userDb == null)
             {
                 user.Id = Guid.NewGuid().ToString();
-                database.Insert(user);
+                await database.InsertAsync(user);
             }
             else
             {
@@ -38,19 +39,24 @@ namespace ProductsCRUD.Repositories.Users
             }
         }
 
-        public User GetUserByEmail(string email)
+        public async Task<User> Get(Expression<Func<User, bool>> predicate)
         {
-            return database.Table<User>().FirstOrDefault(u => u.Email == email);
+            return await database.Table<User>().Where(predicate).FirstOrDefaultAsync();
         }
 
-        public User GetUserByCompositeKey(User user)
+        public async Task<User> GetUserByEmail(string email)
         {
-            return database.Table<User>().FirstOrDefault(u => u.Id == user.Id || u.Email == user.Email || u.CPF == user.CPF);
+            return await database.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public bool Exists(Expression<Func<User, bool>> predicate)
+        public async Task<User> GetUserByCompositeKey(User user)
         {
-            return database.Table<User>().FirstOrDefault(predicate) != null;
+            return await database.Table<User>().FirstOrDefaultAsync(u => u.Id == user.Id || u.Email == user.Email || u.CPF == user.CPF);
+        }
+
+        public async Task<bool> Exists(Expression<Func<User, bool>> predicate)
+        {
+            return await database.Table<User>().FirstOrDefaultAsync(predicate) != null;
         }
     }
 }

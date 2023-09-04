@@ -4,10 +4,14 @@ namespace ProductsCRUD.Util
 {
     public enum MenuViewTokens
     {
+        [Description("Home")]
+        HOME_PAGE,
         [Description("ProductsMain")]
         PRODUCTS_MAIN,
         [Description("CustomersMain")]
         CUSTOMERS_MAIN,
+        [Description("VendorsMain")]
+        VENDORS_MAIN,
         [Description("OrdersMain")]
         ORDERS_MAIN,
         [Description("SalesMain")]
@@ -20,8 +24,8 @@ namespace ProductsCRUD.Util
         SALES_REPORT,        
         [Description("UsersRegister")]
         USER_REGISTER,        
-        [Description("Login")]
-        LOGIN,        
+        [Description("PasswordRecover")]
+        PASSWORD_RECOVER,        
         [Description("Logout")]
         LOGOUT,
         [Description("ManageUsers")]

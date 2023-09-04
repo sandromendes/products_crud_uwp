@@ -1,5 +1,6 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using ProductsCRUD.Models.Users;
 using ProductsCRUD.Services.Users;
 using ProductsCRUD.Util;
 using ProductsCRUD.Util.Labels;
@@ -11,7 +12,7 @@ namespace ProductsCRUD.ViewModels
     public class LoginPageViewModel : ViewModelBase
     {
         private string _email;
-        public string Email
+        public string UserLogin
         {
             get => _email;
             set => SetProperty(ref _email, value);
@@ -43,11 +44,23 @@ namespace ProductsCRUD.ViewModels
 
         public void Login()
         {
-            if (userService.TryLogin(Email, Password, out _))
+            bool isSuccess;
+            User user = null;
+            if (UserLogin.Contains("@"))
             {
-                var user = userService.GetUserByEmail(Email);
+                userService.TryLogin(UserLogin, Password, out isSuccess);
+                user = userService.GetUserByEmail(UserLogin);
+            }
+            else
+            {
+                userService.TryLoginWithUserName(UserLogin, Password, out isSuccess);
+                user = userService.GetUser(u => u.FirstName == UserLogin);
+            }
+
+            if (isSuccess)
+            {
                 ShowMessage("Sucesso!", $"Seja bem vindo(a) {user.FirstName} {user.LastName}");
-                navigationService.Navigate(PageTokens.PRODUCT_MAIN, null);
+                navigationService.Navigate(PageTokens.HomePage.MAIN, null);
             }
             else
                 ShowMessage("Acesso negado!", $"Usuário e/ou senha inválidos.");

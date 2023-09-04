@@ -12,19 +12,22 @@
 
     <NavigationView IsPaneOpen="True" ItemInvoked="{x:Bind ViewModel.OnItemInvoked}" PaneDisplayMode="Left">
         <NavigationView.MenuItems>
+            <NavigationViewItemHeader Content="Home"/>
+            <NavigationViewItem Content="Home" Tag="Home" Icon="Home"/>
             <NavigationViewItemHeader Content="Principal"/>
             <NavigationViewItem Content="Produtos" Tag="ProductsMain" Icon="Caption"/>
-            <NavigationViewItem Content="Clientes" Tag="CustomersMain" Icon="Contact2"/>
-            <NavigationViewItem Content="Pedidos" Tag="OrdersMain" Icon="GlobalNavigationButton"/>
+            <NavigationViewItem Content="Clientes" Tag="CustomersMain" Icon="People"/>
+            <NavigationViewItem Content="Fornecedores" Tag="VendorsMain" Icon="World"/>
+            <NavigationViewItem Content="Pedidos" Tag="OrdersMain" Icon="NewWindow"/>
             <NavigationViewItem Content="Vendas" Tag="SalesMain" Icon="Favorite"/>
             <NavigationViewItemSeparator/>
             <NavigationViewItemHeader Content="Reports" />
-            <NavigationViewItem Content="Clientes" Tag="CustomersReport" Icon="Library"/>
-            <NavigationViewItem Content="Pedidos" Tag="OrdersReport" Icon="Library"/>
-            <NavigationViewItem Content="Vendas" Tag="SalesReport" Icon="Library"/>
+            <NavigationViewItem Content="Clientes" Tag="CustomersReport" Icon="Bookmarks"/>
+            <NavigationViewItem Content="Pedidos" Tag="OrdersReport" Icon="Bookmarks"/>
+            <NavigationViewItem Content="Vendas" Tag="SalesReport" Icon="Bookmarks"/>
             <NavigationViewItemHeader Content="Usuários" />
             <NavigationViewItem Content="Registrar" Tag="UsersRegister" Icon="Account"/>
-            <NavigationViewItem Content="Login" Tag="Login" Icon="Contact"/>
+            <NavigationViewItem Content="Recuperar Senha" Tag="PasswordRecover" Icon="Directions"/>
             <NavigationViewItem Content="Logout" Tag="Logout" Icon="Cancel"/>
             <NavigationViewItem Content="Gerenciar" Tag="ManageUsers" Icon="Manage"/>
         </NavigationView.MenuItems>

@@ -160,13 +160,21 @@
     <Compile Include="Util\Messages\Users\UserMessages.cs" />
     <Compile Include="Util\PageTokens.cs" />
     <Compile Include="Infra\Session\SessionCache.cs" />
+    <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductAddPageViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductEditViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\Products\StockProductPageViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductsMainPageViewModel.cs" />
     <Compile Include="ViewModels\Users\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Users\ManageUsersPageViewModel.cs" />
     <Compile Include="ViewModels\Users\RegisterUserPageViewModel.cs" />
+    <Compile Include="Views\CustomersMainPage.xaml.cs">
+      <DependentUpon>CustomersMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -176,20 +184,35 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrdersMainPage.xaml.cs">
+      <DependentUpon>OrdersMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordChangePage.xaml.cs">
+      <DependentUpon>PasswordChangePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordRecoverPage.xaml.cs">
+      <DependentUpon>PasswordRecoverPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductAddPage.xaml.cs">
+      <DependentUpon>ProductAddPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductEditPage.xaml.cs">
       <DependentUpon>ProductEditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterUserPage.xaml.cs">
       <DependentUpon>RegisterUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SalesPage.xaml.cs">
-      <DependentUpon>SalesPage.xaml</DependentUpon>
+    <Compile Include="Views\SalesMainPage.xaml.cs">
+      <DependentUpon>SalesMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StockProductPage.xaml.cs">
-      <DependentUpon>StockProductPage.xaml</DependentUpon>
+    <Compile Include="Views\ProductsMainPage.xaml.cs">
+      <DependentUpon>ProductsMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VendorsMainPage.xaml.cs">
+      <DependentUpon>VendorsMainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +239,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CustomersMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,6 +259,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrdersMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordChangePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordRecoverPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductAddPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProductEditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,7 +283,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SalesPage.xaml">
+    <Page Include="Views\SalesMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,7 +291,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StockProductPage.xaml">
+    <Page Include="Views\ProductsMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VendorsMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

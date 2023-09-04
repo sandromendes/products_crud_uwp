@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="ProductsCRUD.Views.OrdersMainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductsCRUD.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    prism:ViewModelLocator.AutoWireViewModel="True"    
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Título -->
+        <TextBlock Text="Página de Pedidos" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20"/>
+
+        <!-- Opções de Pesquisa -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+            <TextBox PlaceholderText="Pesquisar por Produto" Width="300" Margin="10"/>
+            <TextBox PlaceholderText="Pesquisar por Cliente" Width="300" Margin="10"/>
+            <DatePicker Width="300" Margin="10"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Valor entre: " VerticalAlignment="Center"/>
+                <TextBox PlaceholderText="Mínimo" Width="100"/>
+                <TextBlock Text=" e " VerticalAlignment="Center"/>
+                <TextBox PlaceholderText="Máximo" Width="100"/>
+            </StackPanel>
+            <Button Content="Pesquisar" Width="120" Margin="10"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Listagem dos Pedidos" FontSize="36" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20"/>
+            <ListView Name="ListViewOrders" Margin="20">
+
+            </ListView>
+        </StackPanel>
+
+        <!-- Botão para Adicionar Pedido -->
+        <Button Content="Adicionar Pedido" Width="160" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20"/>
+    </Grid>
+</Page>

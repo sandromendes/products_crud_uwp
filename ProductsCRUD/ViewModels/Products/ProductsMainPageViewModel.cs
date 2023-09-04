@@ -7,50 +7,18 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using ProductsCRUD.Exceptions;
 using ProductsCRUD.Util.Labels;
 using ProductsCRUD.Services.Images;
-using ProductsCRUD.Util.Messages.Images;
 using ProductsCRUD.Models.Products;
 using ProductsCRUD.Services.Products;
 using ProductsCRUD.Util.Messages.Products;
 
 namespace ProductsCRUD.ViewModels
 {
-    public class StockProductPageViewModel : ViewModelBase
+    public class ProductsMainPageViewModel : ViewModelBase
     {
         private readonly string PRODUCT_IMAGE_NOT_ADDED = "ms-appx:///Assets/LockScreenLogo.scale-200.png";
         private readonly string PRODUCT_TEMP_IMAGE_NAME = "TemporaryImageForProduct";
-
-        private StorageFile _imageFile;
-
-        private string _productName;
-        public string ProductName
-        {
-            get { return _productName; }
-            set { SetProperty(ref _productName, value); }
-        }
-
-        private string _productDescription;
-        public string ProductDescription
-        {
-            get { return _productDescription; }
-            set { SetProperty(ref _productDescription, value); }
-        }
-
-        private double _productPrice;
-        public double ProductPrice
-        {
-            get { return _productPrice; }
-            set { SetProperty(ref _productPrice, value); }
-        }
-
-        private BitmapImage _imageSource;
-        public BitmapImage ImageSource
-        {
-            get => _imageSource;
-            set => SetProperty(ref _imageSource, value);
-        }
 
         public ObservableCollection<ProductDto> Products { get; }
 
@@ -58,7 +26,7 @@ namespace ProductsCRUD.ViewModels
         private readonly IImageConversionService imageConversionService;
         private readonly IProductService productService;
 
-        public StockProductPageViewModel(IProductService productService,
+        public ProductsMainPageViewModel(IProductService productService,
             INavigationService navigationService,
             IImageConversionService imageConversionService)
         {
@@ -69,16 +37,17 @@ namespace ProductsCRUD.ViewModels
             LoadProducts();
         }
 
-        public StockProductPageViewModel()
+        public void NewProductCommand(object sender, RoutedEventArgs e)
         {
+            navigationService.Navigate(PageTokens.ProductsPage.NEW, null);
         }
 
-        public void EditCommand(object sender, RoutedEventArgs e) 
+        public void EditProductCommand(object sender, RoutedEventArgs e) 
         {
             var button = (Button)sender;
             var updatedProduct = (ProductDto)button.Tag;
 
-            navigationService.Navigate(PageTokens.PRODUCT_EDITION, updatedProduct);
+            navigationService.Navigate(PageTokens.ProductsPage.EDIT, updatedProduct);
         }
 
         public async void DeleteCommand(string id) 
@@ -103,48 +72,6 @@ namespace ProductsCRUD.ViewModels
             {
                 ShowCanceledMessage();
             }
-        }
-
-        public async void SaveProduct()
-        {
-            try
-            {
-                imageConversionService.ValidateImage(_imageFile);
-
-                var product = new Product
-                {
-                    Name = ProductName,
-                    Description = ProductDescription,
-                    Price = ProductPrice,
-                    Image = await imageConversionService.ConvertStorageFileToByteArray(_imageFile)
-                };
-
-                // Chama o serviço para salvar o produto no banco de dados SQLite
-                productService.AddProduct(product);
-
-                Products.Add(new ProductDto
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    Price = product.Price,  
-                    Image = await imageConversionService.ConvertFileToBitmapImage(_imageFile)
-                });
-
-                ShowAddedProductMessage();
-            }
-            catch (InvalidImageException)
-            {
-                ShowInvalidImageMessage();
-                ImageSource = null;
-                return;
-            }
-
-            // Limpa os campos após salvar o produto
-            ProductName = string.Empty;
-            ProductDescription = string.Empty;
-            ProductPrice = 0;
-            ImageSource = null;
         }
 
         private async void LoadProducts()
@@ -184,30 +111,6 @@ namespace ProductsCRUD.ViewModels
             }
         }
 
-        public async void SelectImage()
-        {
-            var imageFile = await imageConversionService.PickImage();
-
-            if (imageFile != null)
-            {
-                var bitmapImage = await imageConversionService.ConvertFileToBitmapImage(imageFile);
-                ImageSource = bitmapImage;
-            };
-
-            _imageFile = imageFile;
-        }
-
-        private async void ShowInvalidImageMessage()
-        {
-            var dialog = new ContentDialog
-            {
-                Title = ImageMessages.INVALID_IMAGE_TITLE,
-                Content = ImageMessages.INVALID_IMAGE_CONTENT,
-                CloseButtonText = ButtonLabel.CLOSE_OK
-            };
-            await dialog.ShowAsync();
-        }
-
         private async void ShowRemoveMessage()
         {
             var dialog = new ContentDialog
@@ -227,17 +130,6 @@ namespace ProductsCRUD.ViewModels
                 Title = "Não executado",
                 Content = "Ação cancelada pelo usuário",
 
-                CloseButtonText = ButtonLabel.CLOSE_OK
-            };
-            await dialog.ShowAsync();
-        }
-
-        private async void ShowAddedProductMessage()
-        {
-            var dialog = new ContentDialog
-            {
-                Title = ProductMessages.PRODUCT_CREATED_TITLE,
-                Content = ProductMessages.PRODUCT_CREATED_CONTENT,
                 CloseButtonText = ButtonLabel.CLOSE_OK
             };
             await dialog.ShowAsync();

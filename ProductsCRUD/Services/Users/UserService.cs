@@ -30,6 +30,7 @@ namespace ProductsCRUD.Services.Users
         {
             return await userRepository.GetAll();
         }
+
         public async Task<User> GetUserById(string id)
         {
             return await userRepository.Get(id);
@@ -37,12 +38,17 @@ namespace ProductsCRUD.Services.Users
 
         public User GetUserByEmail(string email)
         {
-            return userRepository.GetUserByEmail(email);
+            return Task.Run(() => userRepository.GetUserByEmail(email)).Result;
+        }
+
+        public User GetUser(Expression<Func<User, bool>> predicate)
+        {
+            return Task.Run(() => userRepository.Get(predicate)).Result;
         }
 
         public bool Exists(Expression<Func<User, bool>> predicate)
         {
-            return userRepository.Exists(predicate);
+            return Task.Run(() => userRepository.Exists(predicate)).Result;
         }
 
         public void RegisterUser(User user)
@@ -60,9 +66,16 @@ namespace ProductsCRUD.Services.Users
             userRepository.Update(user);
         }
 
+        public bool TryLoginWithUserName(string userName, string password, out bool isSuccess)
+        {
+            var user = GetUser(u => u.FirstName == userName);
+
+            return TryLogin(user.Email, password, out isSuccess);
+        }
+
         public bool TryLogin(string email, string password, out bool isSuccess)
         {
-            var userDb = userRepository.GetUserByEmail(email);
+            var userDb = Task.Run(() => userRepository.GetUserByEmail(email)).Result;
             if (userDb != null)
             {
                 var passwordEncrypted = EncryptionUtils.Encrypt(password);

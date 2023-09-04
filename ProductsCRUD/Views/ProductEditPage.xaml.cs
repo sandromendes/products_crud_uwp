@@ -7,13 +7,8 @@ using Windows.UI.Xaml.Navigation;
 using ProductsCRUD.Services.Products;
 using ProductsCRUD.Models.Products;
 
-// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace ProductsCRUD.Views
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
     public sealed partial class ProductEditPage : Page
     {
         public ProductEditViewModel ViewModel { get; }

@@ -71,7 +71,7 @@ namespace ProductsCRUD.ViewModels
 
         public void UpdateUser(string userId)
         {
-            navigationService.Navigate(PageTokens.USER_EDITION, userId);
+            navigationService.Navigate(PageTokens.UsersPage.USER_EDITION_PAGE, userId);
             LoadUsers();
         }
 

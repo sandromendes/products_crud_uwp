@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="ProductsCRUD.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductsCRUD.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    prism:ViewModelLocator.AutoWireViewModel="True"    
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Style x:Key="SquareButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="120"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                        x:Name="ContentPresenter"
+                        AutomationProperties.AccessibilityView="Raw"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Content="{TemplateBinding Content}"
+                        ContentTransitions="{TemplateBinding ContentTransitions}"
+                        CornerRadius="10"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20">
+            <TextBlock Text="Tela Inicial" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50"/>
+            <TextBox PlaceholderText="Pesquise sobre produtos, clientes, fornecedores..." Width="700" HorizontalAlignment="Center" Margin="0,10"/>
+            <StackPanel Orientation="Horizontal" Margin="0,20">
+                <Button Content="Produtos" Width="120" Height="120" Margin="30" Style="{StaticResource SquareButtonStyle}" Click="{x:Bind ViewModel.NavigateToProductsPage}"/>
+                <Button Content="Clientes" Width="120" Height="120" Margin="30" Style="{StaticResource SquareButtonStyle}" Click="{x:Bind ViewModel.NavigateToClientsPage}"/>
+                <Button Content="Pedidos" Width="120" Height="120" Margin="30" Style="{StaticResource SquareButtonStyle}" Click="{x:Bind ViewModel.NavigateToOrdersPage}"/>
+                <Button Content="Vendas" Width="120" Height="120" Margin="30" Style="{StaticResource SquareButtonStyle}" Click="{x:Bind ViewModel.NavigateToSalesPage}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -25,7 +25,7 @@ namespace ProductsCRUD.ViewModels
 
             if (e.IsSettingsInvoked)
             {
-                navigationService.Navigate(PageTokens.SETTINGS, null);
+                navigationService.Navigate(PageTokens.SettingsPage.MAIN, null);
                 return;
             }
 
@@ -37,15 +37,23 @@ namespace ProductsCRUD.ViewModels
             {
                 switch (menuTag)
                 {
+                    case MenuViewTokens.HOME_PAGE:
+                        navigationService.Navigate(PageTokens.HomePage.MAIN, null);
+                        break;
                     case MenuViewTokens.PRODUCTS_MAIN:
-                        navigationService.Navigate(PageTokens.PRODUCT_MAIN, null);
+                        navigationService.Navigate(PageTokens.ProductsPage.MAIN, null);
                         break;
                     case MenuViewTokens.CUSTOMERS_MAIN:
+                        navigationService.Navigate(PageTokens.CustomersPage.MAIN, null);
+                        break;
+                    case MenuViewTokens.VENDORS_MAIN:
+                        navigationService.Navigate(PageTokens.VendorsPage.MAIN, null);
                         break;
                     case MenuViewTokens.ORDERS_MAIN:
+                        navigationService.Navigate(PageTokens.OrdersPage.MAIN, null);
                         break;
                     case MenuViewTokens.SALES_MAIN:
-                        navigationService.Navigate(PageTokens.SALES_MAIN, null);
+                        navigationService.Navigate(PageTokens.SalesPage.MAIN, null);
                         break;
                     case MenuViewTokens.CUSTOMERS_REPORT:
                         break;
@@ -54,16 +62,16 @@ namespace ProductsCRUD.ViewModels
                     case MenuViewTokens.SALES_REPORT:
                         break;
                     case MenuViewTokens.USER_REGISTER:
-                        navigationService.Navigate(PageTokens.USER_REGISTER, null);
+                        navigationService.Navigate(PageTokens.UsersPage.USER_REGISTER_PAGE, null);
                         break;
-                    case MenuViewTokens.LOGIN:
-                        navigationService.Navigate(PageTokens.LOGIN, new AuthDto.Payload());
+                    case MenuViewTokens.PASSWORD_RECOVER:
+                        navigationService.Navigate(PageTokens.UsersPage.USER_PASSWORD_RECOVER_PAGE, null);
                         break;                
                     case MenuViewTokens.LOGOUT:
                         navigationManager.Logoff();
                         break;
                     case MenuViewTokens.MANAGE_USERS:
-                        navigationService.Navigate(PageTokens.USERS_MANAGEMENT, null);
+                        navigationService.Navigate(PageTokens.UsersPage.USERS_MANAGEMENT_PAGE, null);
                         break;
                     default:
                         break;

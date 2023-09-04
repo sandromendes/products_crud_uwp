@@ -20,9 +20,9 @@ namespace ProductsCRUD.Views
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class SalesPage : Page
+    public sealed partial class OrdersMainPage : Page
     {
-        public SalesPage()
+        public OrdersMainPage()
         {
             this.InitializeComponent();
         }

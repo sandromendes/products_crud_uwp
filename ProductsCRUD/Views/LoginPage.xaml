@@ -12,7 +12,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBox PlaceholderText="Email" Width="200" Margin="5" x:Name="EmailTextBox" Text="{x:Bind ViewModel.Email, Mode=TwoWay}"/>
+            <TextBox PlaceholderText="Email ou nome do usuário" Width="200" Margin="5" x:Name="EmailTextBox" Text="{x:Bind ViewModel.UserLogin, Mode=TwoWay}"/>
             <PasswordBox PlaceholderText="Senha" Width="200" Margin="5" x:Name="PasswordBox" Password="{x:Bind ViewModel.Password, Mode=TwoWay}"/>
             <TextBlock Text="{x:Bind ViewModel.ErrorMessage}" Foreground="Red" Margin="5" />
             <Button Content="Login" Width="100" Margin="5" Click="{x:Bind ViewModel.Login, Mode=OneTime}" />

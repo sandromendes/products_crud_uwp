@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ProductsCRUD.Views.StockProductPage"
+    x:Class="ProductsCRUD.Views.ProductsMainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProductsCRUD.Views"
@@ -13,36 +13,32 @@
 
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="570"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0,20">
-            <TextBlock Text="Cadastro de Produtos" FontSize="30" FontWeight="Bold" Margin="0,0,0,50"/>
-            <TextBox PlaceholderText="Nome" Text="{x:Bind ViewModel.ProductName, Mode=TwoWay}" Margin="0,0,0,20"/>
-            <TextBox PlaceholderText="Descrição" Text="{x:Bind ViewModel.ProductDescription, Mode=TwoWay}" Margin="0,0,0,20"/>
-            <TextBox PlaceholderText="Preço" Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}" Margin="0,0,0,20"/>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Imagem:" Grid.Row="0" HorizontalAlignment="Left"/>
-                <Button Content="Selecionar Imagem" Click="{x:Bind ViewModel.SelectImage}" Grid.Row="0" HorizontalAlignment="Right"/>
-            </Grid>
 
-            <!-- Pré-visualização da imagem selecionada -->
-            <TextBlock Text="Pré-visualização:"/>
-            <Image Source="{x:Bind ViewModel.ImageSource, Mode=TwoWay}" Width="200" Height="200"/>
+        <!-- Título -->
+        <TextBlock Text="Página de Produtos" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" Grid.Row="0"/>
+        <!-- Botão para Adicionar Produto -->
+        <Button Content="Adicionar Produto" Width="160" Height="40" VerticalAlignment="Bottom" Click="{x:Bind ViewModel.NewProductCommand}" 
+                HorizontalAlignment="Right" Margin="20" Grid.Row="0"/>
 
-            <Button Content="Salvar" Click="{x:Bind ViewModel.SaveProduct, Mode=OneTime}" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Margin="0,10,0,30"/>
+        <!-- Opções de Pesquisa -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+            <TextBox PlaceholderText="Nome do Produto" Width="300" Margin="10"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Valor entre: " VerticalAlignment="Center"/>
+                <TextBox PlaceholderText="Mínimo" Width="100"/>
+                <TextBlock Text=" e " VerticalAlignment="Center"/>
+                <TextBox PlaceholderText="Máximo" Width="100"/>
+            </StackPanel>
+            <Button Content="Pesquisar" Width="120" Margin="10"/>
         </StackPanel>
 
-        <TextBlock Text="Lista de Produtos" FontSize="30" FontWeight="Bold" 
-	        HorizontalAlignment="Center" Grid.Row="1" Margin="0,0,0,50"/>
-        <ScrollViewer Grid.Row="1" Margin="0,60,0,20" HorizontalAlignment="Center">
+        <TextBlock Text="Produtos Cadastrados" FontSize="30" FontWeight="Bold" 
+	        HorizontalAlignment="Center" Grid.Row="2" Margin="0,0,0,50"/>
+        <ScrollViewer Grid.Row="2" Margin="0,60,0,20" HorizontalAlignment="Center">
             <!-- Tabela de produtos cadastrados -->
             <StackPanel Margin="0,0,0,20">
                 <ListView x:Name="listView" ItemsSource="{x:Bind ViewModel.Products}">
@@ -72,5 +68,7 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
+
+        
     </Grid>
 </Page>

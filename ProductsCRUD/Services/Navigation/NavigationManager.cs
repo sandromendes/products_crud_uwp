@@ -27,8 +27,7 @@ namespace ProductsCRUD.Services.Navigation
         {
             if (!authManagerService.IsAuthenticatedUserOnSession())
             {
-                ShowMessage("Atenção!", "Faça login para acessar esta funcionalidade.");
-                navigationService.Navigate(PageTokens.LOGIN, null);
+                navigationService.Navigate(PageTokens.UsersPage.LOGIN_PAGE, null);
                 return false;
             }
 
@@ -42,11 +41,11 @@ namespace ProductsCRUD.Services.Navigation
                 userService.Logout();
                 ShowMessage("Atenção!", "Você foi desconectado! " +
                     "Faça login novamente para acessar novamente.");
-                navigationService.Navigate(PageTokens.LOGIN, null);
+                navigationService.Navigate(PageTokens.UsersPage.LOGIN_PAGE, null);
             }
             catch (UserNotLoggedException)
             {
-                navigationService.Navigate(PageTokens.LOGIN, null);
+                navigationService.Navigate(PageTokens.UsersPage.LOGIN_PAGE, null);
                 ShowMessage("Atenção!", "Não há nenhum usuário autenticado.");
             }
         }
