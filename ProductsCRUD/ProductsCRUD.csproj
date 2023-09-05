@@ -130,6 +130,7 @@
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\ProductDto.cs" />
+    <Compile Include="Models\Products\ProductFilterRequest.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

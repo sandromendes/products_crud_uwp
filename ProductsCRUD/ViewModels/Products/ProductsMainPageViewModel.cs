@@ -99,18 +99,9 @@ namespace ProductsCRUD.ViewModels
 
         public void FilterProducts()
         {
-            var filter = productService.GetQueryable();
+            var request = new ProductFilterRequest(filterProductName, filterProductMinValue, filterProductMaxValue);
 
-            if (FilterProductName != null && FilterProductName != string.Empty)
-                filter = filter.Where(p => p.Name == filterProductName);
-
-            if (FilterProductMinValue != 0)
-                filter = filter.Where(p => p.Price >= filterProductMinValue);
-
-            if (FilterProductMaxValue != 0)
-                filter = filter.Where(p => p.Price <= filterProductMaxValue);
-
-            var filteredProducts = productService.GetProductsByFilter(filter);
+            var filteredProducts = productService.GetProductsByFilter(request);
 
             LoadProducts(filteredProducts);
         }

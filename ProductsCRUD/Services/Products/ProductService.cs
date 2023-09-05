@@ -1,9 +1,7 @@
 ﻿using ProductsCRUD.Models.Products;
 using ProductsCRUD.Repositories.Products;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace ProductsCRUD.Services.Products
 {
@@ -21,11 +19,6 @@ namespace ProductsCRUD.Services.Products
             productRepository.AddProduct(newProduct);
         }
 
-        public IQueryable<Product> GetQueryable()
-        {
-            return productRepository.GetQueryable();
-        }
-
         public List<Product> GetProducts()
         {
             return productRepository.GetProducts();
@@ -36,8 +29,19 @@ namespace ProductsCRUD.Services.Products
             return productRepository.GetProductById(id);
         }
 
-        public List<Product> GetProductsByFilter(IQueryable<Product> filter)
+        public List<Product> GetProductsByFilter(ProductFilterRequest request)
         {
+            var filter = productRepository.GetQueryable();
+
+            if (request.ProductName != null && request.ProductName != string.Empty)
+                filter = filter.Where(p => p.Name == request.ProductName);
+
+            if (request.ProductMinValue != 0)
+                filter = filter.Where(p => p.Price >= request.ProductMinValue);
+
+            if (request.ProductMaxValue != 0)
+                filter = filter.Where(p => p.Price <= request.ProductMaxValue);
+
             return productRepository.GetProductsByFilter(filter);
         }
 
