@@ -3,6 +3,8 @@ using ProductsCRUD.Models.Products;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace ProductsCRUD.Repositories.Products
 {
@@ -26,6 +28,11 @@ namespace ProductsCRUD.Repositories.Products
             }
         }
 
+        public IQueryable<Product> GetQueryable()
+        {
+            return database.Table<Product>().AsQueryable();
+        }
+
         public List<Product> GetProducts()
         {
             return database.Table<Product>().ToList();
@@ -34,6 +41,11 @@ namespace ProductsCRUD.Repositories.Products
         public Product GetProductById(string id)
         {
             return database.Table<Product>().Where(a => a.Id == id).FirstOrDefault();
+        }
+
+        public List<Product> GetProductsByFilter(IQueryable<Product> query)
+        {
+            return query.ToList();
         }
 
         public void UpdateProduct(Product updatedProduct)

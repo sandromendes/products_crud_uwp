@@ -26,14 +26,14 @@
 
         <!-- Opções de Pesquisa -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <TextBox PlaceholderText="Nome do Produto" Width="300" Margin="10"/>
+            <TextBox PlaceholderText="Nome do Produto" Text="{x:Bind ViewModel.FilterProductName, Mode=TwoWay}" Width="300" Margin="10"/>
             <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Valor entre: " VerticalAlignment="Center"/>
-                <TextBox PlaceholderText="Mínimo" Width="100"/>
-                <TextBlock Text=" e " VerticalAlignment="Center"/>
-                <TextBox PlaceholderText="Máximo" Width="100"/>
+                <TextBlock Text="Valor entre: " VerticalAlignment="Center" Margin="10,0"/>
+                <TextBox PlaceholderText="Mínimo" Text="{x:Bind ViewModel.FilterProductMinValue, Mode=TwoWay}" Width="100"/>
+                <TextBlock Text=" e " VerticalAlignment="Center" Margin="10,0"/>
+                <TextBox PlaceholderText="Máximo" Text="{x:Bind ViewModel.FilterProductMaxValue, Mode=TwoWay}" Width="100"/>
             </StackPanel>
-            <Button Content="Pesquisar" Width="120" Margin="10"/>
+            <Button Content="Pesquisar" Click="{x:Bind ViewModel.FilterProducts, Mode=OneWay}" Width="120" Margin="10"/>
         </StackPanel>
 
         <TextBlock Text="Produtos Cadastrados" FontSize="30" FontWeight="Bold" 

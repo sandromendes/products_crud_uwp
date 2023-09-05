@@ -12,6 +12,8 @@ using ProductsCRUD.Services.Images;
 using ProductsCRUD.Models.Products;
 using ProductsCRUD.Services.Products;
 using ProductsCRUD.Util.Messages.Products;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ProductsCRUD.ViewModels
 {
@@ -19,6 +21,27 @@ namespace ProductsCRUD.ViewModels
     {
         private readonly string PRODUCT_IMAGE_NOT_ADDED = "ms-appx:///Assets/LockScreenLogo.scale-200.png";
         private readonly string PRODUCT_TEMP_IMAGE_NAME = "TemporaryImageForProduct";
+
+        private string filterProductName;
+        public string FilterProductName
+        {
+            get { return filterProductName; }
+            set { SetProperty(ref filterProductName, value); }
+        }
+
+        private double filterProductMinValue;
+        public double FilterProductMinValue
+        {
+            get { return filterProductMinValue; }
+            set { SetProperty(ref filterProductMinValue, value); }
+        }
+
+        private double filterProductMaxValue;
+        public double FilterProductMaxValue
+        {
+            get { return filterProductMaxValue; }
+            set { SetProperty(ref filterProductMaxValue, value); }
+        }
 
         public ObservableCollection<ProductDto> Products { get; }
 
@@ -34,7 +57,7 @@ namespace ProductsCRUD.ViewModels
             this.productService = productService;
             this.navigationService = navigationService;
             this.imageConversionService = imageConversionService;
-            LoadProducts();
+            LoadProducts(productService.GetProducts());
         }
 
         public void NewProductCommand(object sender, RoutedEventArgs e)
@@ -66,7 +89,7 @@ namespace ProductsCRUD.ViewModels
             {
                 productService.DeleteProduct(id);
                 ShowRemoveMessage();
-                LoadProducts();
+                LoadProducts(productService.GetProducts());
             }
             else
             {
@@ -74,11 +97,26 @@ namespace ProductsCRUD.ViewModels
             }
         }
 
-        private async void LoadProducts()
+        public void FilterProducts()
         {
-            // Chama o serviço para obter a lista de produtos cadastrados no banco de dados SQLite
-            var products = productService.GetProducts();
+            var filter = productService.GetQueryable();
 
+            if (FilterProductName != null && FilterProductName != string.Empty)
+                filter = filter.Where(p => p.Name == filterProductName);
+
+            if (FilterProductMinValue != 0)
+                filter = filter.Where(p => p.Price >= filterProductMinValue);
+
+            if (FilterProductMaxValue != 0)
+                filter = filter.Where(p => p.Price <= filterProductMaxValue);
+
+            var filteredProducts = productService.GetProductsByFilter(filter);
+
+            LoadProducts(filteredProducts);
+        }
+
+        private async void LoadProducts(IList<Product> products)
+        {
             var emptyProductFile = await StorageFile
                 .GetFileFromApplicationUriAsync(new Uri(PRODUCT_IMAGE_NOT_ADDED));
 
