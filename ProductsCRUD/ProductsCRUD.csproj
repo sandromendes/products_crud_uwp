@@ -122,45 +122,7 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\AppDbContext.cs" />
-    <Compile Include="Exceptions\InvalidImageException.cs" />
-    <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\UserNotLoggedException.cs" />
-    <Compile Include="Models\Auth\AuthDto.cs" />
-    <Compile Include="Models\IEntity.cs" />
-    <Compile Include="Models\Products\Product.cs" />
-    <Compile Include="Models\Products\ProductDto.cs" />
-    <Compile Include="Models\Products\ProductFilterRequest.cs" />
-    <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\IGenericRepository.cs" />
-    <Compile Include="Repositories\Products\IProductRepository.cs" />
-    <Compile Include="Repositories\Products\ProductRepository.cs" />
-    <Compile Include="Repositories\Users\IUserRepository.cs" />
-    <Compile Include="Repositories\Users\UserRepository.cs" />
-    <Compile Include="Services\AuthManagerService.cs" />
-    <Compile Include="Services\IAuthManagerService.cs" />
-    <Compile Include="Services\Images\IImageConversionService.cs" />
-    <Compile Include="Services\Images\ImageConversionService.cs" />
-    <Compile Include="Services\Navigation\INavigationManager.cs" />
-    <Compile Include="Services\Navigation\NavigationManager.cs" />
-    <Compile Include="Services\Products\IProductService.cs" />
-    <Compile Include="Services\Products\ProductService.cs" />
-    <Compile Include="Services\Token\ITokenService.cs" />
-    <Compile Include="Services\Token\TokenService.cs" />
-    <Compile Include="Services\Users\IUserService.cs" />
-    <Compile Include="Services\Users\UserService.cs" />
-    <Compile Include="Util\AppConstants.cs" />
-    <Compile Include="Util\EncryptionUtils.cs" />
-    <Compile Include="Util\EnumUtil.cs" />
-    <Compile Include="Util\Labels\ButtonLabel.cs" />
-    <Compile Include="Util\MenuViewTokens.cs" />
-    <Compile Include="Util\Messages\Images\ImageMessages.cs" />
-    <Compile Include="Util\Messages\Product\ProductMessages.cs" />
-    <Compile Include="Util\Messages\Users\UserMessages.cs" />
-    <Compile Include="Util\PageTokens.cs" />
-    <Compile Include="Infra\Session\SessionCache.cs" />
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductAddPageViewModel.cs" />
@@ -326,6 +288,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProductsCRUD.Business\ProductsCRUD.Business.csproj">
+      <Project>{778995fc-4028-4368-8203-255c453a6a93}</Project>
+      <Name>ProductsCRUD.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductsCRUD.Common\ProductsCRUD.Common.csproj">
+      <Project>{06e70bda-4775-42c6-b4d4-402b12390506}</Project>
+      <Name>ProductsCRUD.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductsCRUD.Domain\ProductsCRUD.Domain.csproj">
+      <Project>{82b2140c-0dbc-48dc-b4cc-85a11c44e850}</Project>
+      <Name>ProductsCRUD.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductsCRUD.Infra\ProductsCRUD.Infra.csproj">
+      <Project>{0d7e3bc5-cedd-4a0f-a82d-c8fbbe4a495d}</Project>
+      <Name>ProductsCRUD.Infra</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -14,6 +14,7 @@ using ProductsCRUD.Services.Products;
 using ProductsCRUD.Util.Messages.Products;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.ViewModels
 {
@@ -57,7 +58,7 @@ namespace ProductsCRUD.ViewModels
             this.productService = productService;
             this.navigationService = navigationService;
             this.imageConversionService = imageConversionService;
-            LoadProducts(productService.GetProducts());
+            LoadProducts(Task.Run(() => productService.GetProducts()).Result);
         }
 
         public void NewProductCommand(object sender, RoutedEventArgs e)
@@ -89,7 +90,7 @@ namespace ProductsCRUD.ViewModels
             {
                 productService.DeleteProduct(id);
                 ShowRemoveMessage();
-                LoadProducts(productService.GetProducts());
+                LoadProducts(await productService.GetProducts());
             }
             else
             {

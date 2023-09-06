@@ -1,5 +1,9 @@
 ﻿using SQLite;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System;
 using MaxLengthAttribute = SQLite.MaxLengthAttribute;
+using ProductsCRUD.Models.Categories;
 
 namespace ProductsCRUD.Models.Products
 {

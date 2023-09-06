@@ -1,9 +1,7 @@
 ﻿using ProductsCRUD.DbContext;
 using ProductsCRUD.Models;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ProductsCRUD.Repositories

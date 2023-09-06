@@ -1,7 +1,9 @@
 ﻿using ProductsCRUD.Models.Products;
 using ProductsCRUD.Repositories.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Services.Products
 {
@@ -14,19 +16,20 @@ namespace ProductsCRUD.Services.Products
             this.productRepository = productRepository;
         }
 
-        public void AddProduct(Product newProduct)
+        public async Task AddProduct(Product newProduct)
         {
-            productRepository.AddProduct(newProduct);
+            newProduct.Id = Guid.NewGuid().ToString();
+            await productRepository.Add(newProduct);
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            return productRepository.GetProducts();
+            return await productRepository.GetAll();
         }
 
-        public Product GetProductById(string id)
+        public async Task<Product> GetProductById(string id)
         {
-            return productRepository.GetProductById(id);
+            return await productRepository.Get(id);
         }
 
         public List<Product> GetProductsByFilter(ProductFilterRequest request)
@@ -34,7 +37,7 @@ namespace ProductsCRUD.Services.Products
             var filter = productRepository.GetQueryable();
 
             if (request.ProductName != null && request.ProductName != string.Empty)
-                filter = filter.Where(p => p.Name == request.ProductName);
+                filter = filter.Where(p => p.Name.Contains(request.ProductName));
 
             if (request.ProductMinValue != 0)
                 filter = filter.Where(p => p.Price >= request.ProductMinValue);
@@ -45,14 +48,14 @@ namespace ProductsCRUD.Services.Products
             return productRepository.GetProductsByFilter(filter);
         }
 
-        public void UpdateProduct(Product updatedProduct)
+        public async void UpdateProduct(Product updatedProduct)
         {
-            productRepository.UpdateProduct(updatedProduct);
+            await productRepository.Update(updatedProduct);
         }
 
-        public void DeleteProduct(string id)
+        public async void DeleteProduct(string id)
         {
-            productRepository.DeleteProduct(id);
+            await productRepository.Delete(id);
         }
     }
 }

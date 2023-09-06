@@ -59,7 +59,7 @@ namespace ProductsCRUD.ViewModels
 
             if (isSuccess)
             {
-                ShowMessage("Sucesso!", $"Seja bem vindo(a) {user.FirstName} {user.LastName}");
+                ShowMessage("Bem vindo!", $"Seja bem vindo(a) {user.FirstName}");
                 navigationService.Navigate(PageTokens.HomePage.MAIN, null);
             }
             else

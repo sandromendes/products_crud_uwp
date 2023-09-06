@@ -44,7 +44,7 @@
                 <ListView x:Name="listView" ItemsSource="{x:Bind ViewModel.Products}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ProductDto">
-                            <Grid>
+                            <Grid Margin="0,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />

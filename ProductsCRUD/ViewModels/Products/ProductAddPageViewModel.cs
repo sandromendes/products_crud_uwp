@@ -72,11 +72,11 @@ namespace ProductsCRUD.ViewModels
                     Name = ProductName,
                     Description = ProductDescription,
                     Price = ProductPrice,
-                    Image = await imageConversionService.ConvertStorageFileToByteArray(_imageFile)
+                    Image = _imageFile != null ? await imageConversionService.ConvertStorageFileToByteArray(_imageFile) : null
                 };
 
                 // Chama o serviço para salvar o produto no banco de dados SQLite
-                productService.AddProduct(product);
+                await productService.AddProduct(product);
                 ShowAddedProductMessage();
                 navigationService.Navigate(PageTokens.ProductsPage.MAIN, null);
             }

@@ -1,17 +1,14 @@
 ﻿using ProductsCRUD.Models.Products;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductsCRUD.Repositories.Products
 {
-    public interface IProductRepository
+    public interface IProductRepository : IGenericRepository<Product>
     {
-        void AddProduct(Product newProduct);
+        new Task Add(Product product);
         IQueryable<Product> GetQueryable();
-        List<Product> GetProducts();
-        Product GetProductById(string id);
         List<Product> GetProductsByFilter(IQueryable<Product> filter);
-        void UpdateProduct(Product updatedProduct);
-        void DeleteProduct(string id);
     }
 }
