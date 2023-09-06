@@ -1,0 +1,109 @@
+﻿<Page
+    x:Class="ProductsCRUD.Views.UserProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProductsCRUD.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Seção de Informações do Usuário -->
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!-- Foto do Usuário -->
+            <Image Source="ms-appx:///Assets/UserProfile.png" Width="100" Height="100" Margin="0 0 0 10"/>
+            <!-- Nome do Usuário -->
+            <TextBlock Text="Nome do Usuário" FontSize="20" FontWeight="Bold" Margin="0 0 0 5"/>
+            <!-- Email do Usuário -->
+            <TextBlock Text="usuario@example.com" Margin="0 5 0 5"/>
+            <!-- Bio do Usuário -->
+            <TextBlock Text="Descrição breve sobre o usuário" Margin="0 10 0 10"/>
+            <!-- Botão de Editar Perfil -->
+            <Button Content="Editar Perfil" Click="EditProfileAction" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Seção de Atividades do Usuário -->
+        <ListView Grid.Row="1" Background="WhiteSmoke" Width="800" Height="600" BorderThickness="0" Margin="20,30">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Padding" Value="10 5"/>
+                    <Setter Property="Margin" Value="0 5"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" BorderThickness="0" Padding="10 5" Margin="0 5">
+                        <TextBlock Text="Transação" Width="150" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Descrição" Width="250" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Tipo" Width="200" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Data" Width="200" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+
+            <!-- Dados Fake de Atividades -->
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#1234567890" Width="150" FontSize="16"/>
+                    <TextBlock Text="Nova venda realizada" Width="250" FontSize="16"/>
+                    <TextBlock Text="Venda" Width="200" FontSize="16"/>
+                    <TextBlock Text="14/08/2023 10:30 AM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#9876543210" Width="150" FontSize="16"/>
+                    <TextBlock Text="Novo Pedido Recebido" Width="250" FontSize="16"/>
+                    <TextBlock Text="Pedido" Width="200" FontSize="16"/>
+                    <TextBlock Text="13/08/2023 02:45 PM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#9876596422" Width="150" FontSize="16"/>
+                    <TextBlock Text="Novo Pedido Recebido" Width="250" FontSize="16"/>
+                    <TextBlock Text="Pedido" Width="200" FontSize="16"/>
+                    <TextBlock Text="13/08/2023 02:45 PM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#9876555599" Width="150" FontSize="16"/>
+                    <TextBlock Text="Novo Pedido Recebido" Width="250" FontSize="16"/>
+                    <TextBlock Text="Pedido" Width="200" FontSize="16"/>
+                    <TextBlock Text="13/08/2023 02:45 PM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#9588943210" Width="150" FontSize="16"/>
+                    <TextBlock Text="Novo Pedido Recebido" Width="250" FontSize="16"/>
+                    <TextBlock Text="Pedido" Width="200" FontSize="16"/>
+                    <TextBlock Text="13/08/2023 02:45 PM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="#5887567890" Width="150" FontSize="16"/>
+                    <TextBlock Text="Nova produto registrado" Width="250" FontSize="16"/>
+                    <TextBlock Text="Produto" Width="200" FontSize="16"/>
+                    <TextBlock Text="14/08/2023 10:30 AM" Width="200" FontSize="16"/>
+                </StackPanel>
+            </ListViewItem>
+            <!-- Adicione mais itens de atividade aqui -->
+        </ListView>
+    </Grid>
+</Page>

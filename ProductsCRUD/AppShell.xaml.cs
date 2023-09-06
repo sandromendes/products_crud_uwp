@@ -1,30 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Microsoft.Practices.ServiceLocation;
+using Prism.Windows.Navigation;
+using ProductsCRUD.Services.Navigation;
+using ProductsCRUD.Util;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace ProductsCRUD
 {
     public sealed partial class AppShell : UserControl
     {
+        private readonly INavigationService _navigationService;
+        private readonly INavigationManager _navigationManager;
+
         public AppShell()
         {
             this.InitializeComponent();
+            _navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
+            _navigationManager = ServiceLocator.Current.GetInstance<INavigationManager>();
         }
 
         public void SetFrame(Frame frame)
         {
             FrameContainer.Content = frame;
+        }
+
+        public void ProfileClickAction(object sender, RoutedEventArgs e)
+        {
+            _navigationService.Navigate(PageTokens.UsersPage.USER_PROFILE, null);
+        }
+
+        public void NotificationsClickAction(object sender, RoutedEventArgs e)
+        { 
+            _navigationService.Navigate(PageTokens.UsersPage.USER_NOTIFICATIONS, null);
+        }
+
+        public void LogoffClickAction(object sender, RoutedEventArgs e) 
+        {
+            _navigationManager.Logoff();
         }
     }
 }

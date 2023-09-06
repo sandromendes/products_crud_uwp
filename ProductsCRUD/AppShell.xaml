@@ -11,15 +11,24 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <CommandBar IsOpen="True" IsSticky="True" VerticalContentAlignment="Stretch" Grid.Row="0">
             <CommandBar.Content>
-                <TextBlock Text="Controle de Estoque" FontSize="25" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="20,0"/>
+                <TextBlock Text="Controle de Estoque" FontSize="24" FontWeight="SemiBold" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </CommandBar.Content>
-            <AppBarButton Label="Login" Icon="ContactInfo" />
+            <AppBarButton Icon="ContactInfo">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Perfil" Click="ProfileClickAction"/>
+                        <MenuFlyoutItem Text="Mensagens" Click="NotificationsClickAction"/>
+                        <MenuFlyoutItem Text="Sair" Click="LogoffClickAction"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
         </CommandBar>
 
         <Grid Grid.Row="1">

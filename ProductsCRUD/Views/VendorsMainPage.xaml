@@ -6,6 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"      
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    prism:ViewModelLocator.AutoWireViewModel="True"       
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -32,9 +36,28 @@
 
         <StackPanel Grid.Row="2">
             <TextBlock Text="Listagem dos Fornecedores" FontSize="36" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20"/>
-            <ListView Name="ListViewVendors" Margin="20">
 
-            </ListView>
+            <Grid HorizontalAlignment="Center" Margin="0,100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <controls:DataGrid x:Name="VendorsGrid" ItemsSource="{x:Bind ViewModel.Vendors}"
+                  AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                        <controls:DataGrid.Columns>
+                            <controls:DataGridTextColumn Header="Nome" Binding="{Binding Name}"/>
+                            <controls:DataGridComboBoxColumn Header="Categoria" 
+                                                             Binding="{Binding VendorCategoryId}"
+                                                             ItemsSource="{x:Bind ViewModel.VendorCategories, Mode=OneWay}"
+                                                             DisplayMemberPath="Name"/>
+                            <controls:DataGridComboBoxColumn Header="Cidade"
+                                                             Binding="{Binding CityId}"
+                                                             ItemsSource="{x:Bind ViewModel.Cities, Mode=OneWay}"
+                                                             DisplayMemberPath="Name"/>
+                            <controls:DataGridTextColumn Header="Data de Contrato" Binding="{Binding StartContractDate}"/>
+                        </controls:DataGrid.Columns>
+                    </controls:DataGrid>
+            </Grid>
         </StackPanel>
 
     </Grid>

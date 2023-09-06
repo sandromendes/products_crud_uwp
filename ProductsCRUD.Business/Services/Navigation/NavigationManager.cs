@@ -39,8 +39,7 @@ namespace ProductsCRUD.Services.Navigation
             try
             {
                 userService.Logout();
-                ShowMessage("Atenção!", "Você foi desconectado! " +
-                    "Faça login novamente para acessar novamente.");
+                ShowMessage("Atenção!", "Você foi desconectado da aplicação!");
                 navigationService.Navigate(PageTokens.UsersPage.LOGIN_PAGE, null);
             }
             catch (UserNotLoggedException)

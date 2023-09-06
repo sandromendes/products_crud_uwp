@@ -67,9 +67,6 @@ namespace ProductsCRUD.ViewModels
                     case MenuViewTokens.PASSWORD_RECOVER:
                         navigationService.Navigate(PageTokens.UsersPage.USER_PASSWORD_RECOVER_PAGE, null);
                         break;                
-                    case MenuViewTokens.LOGOUT:
-                        navigationManager.Logoff();
-                        break;
                     case MenuViewTokens.MANAGE_USERS:
                         navigationService.Navigate(PageTokens.UsersPage.USERS_MANAGEMENT_PAGE, null);
                         break;

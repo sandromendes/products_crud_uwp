@@ -28,7 +28,6 @@
             <NavigationViewItemHeader Content="Usuários" />
             <NavigationViewItem Content="Registrar" Tag="UsersRegister" Icon="Account"/>
             <NavigationViewItem Content="Recuperar Senha" Tag="PasswordRecover" Icon="Directions"/>
-            <NavigationViewItem Content="Logout" Tag="Logout" Icon="Cancel"/>
             <NavigationViewItem Content="Gerenciar" Tag="ManageUsers" Icon="Manage"/>
         </NavigationView.MenuItems>
 

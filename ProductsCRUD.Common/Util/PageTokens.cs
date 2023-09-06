@@ -47,6 +47,8 @@
             public static readonly string USER_EDITION_PAGE = "UserEdit";
             public static readonly string USER_PASSWORD_RECOVER_PAGE = "PasswordRecover";
             public static readonly string USER_PASSWORD_CHANGE_PAGE = "PasswordChage";
+            public static readonly string USER_PROFILE = "UserProfile";
+            public static readonly string USER_NOTIFICATIONS = "UserNotifications";
         }
     }
 }

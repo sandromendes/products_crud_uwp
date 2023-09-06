@@ -26,8 +26,6 @@ namespace ProductsCRUD.Util
         USER_REGISTER,        
         [Description("PasswordRecover")]
         PASSWORD_RECOVER,        
-        [Description("Logout")]
-        LOGOUT,
         [Description("ManageUsers")]
         MANAGE_USERS
     }
