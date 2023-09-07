@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Media.Imaging;
 
-namespace ProductsCRUD.Models.Products
+namespace ProductsCRUD.Business.Models.Products
 {
     public class ProductDto
     {

@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace ProductsCRUD.Models.Users
+namespace ProductsCRUD.Domain.Models.Users
 {
     public class User : IEntity
     {

@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Models.Products
+﻿namespace ProductsCRUD.Domain.Models.Products
 {
     public class ProductFilterRequest
     {

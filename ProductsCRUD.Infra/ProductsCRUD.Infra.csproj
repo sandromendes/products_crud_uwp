@@ -124,10 +124,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\IGenericRepository.cs" />
-    <Compile Include="Repositories\Products\IProductRepository.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
-    <Compile Include="Repositories\Users\IUserRepository.cs" />
     <Compile Include="Repositories\Users\UserRepository.cs" />
     <Compile Include="Session\SessionCache.cs" />
     <EmbeddedResource Include="Properties\ProductsCRUD.Infra.rd.xml" />

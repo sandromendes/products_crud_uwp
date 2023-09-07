@@ -1,4 +1,4 @@
-﻿using ProductsCRUD.Models.Products;
+﻿using ProductsCRUD.Business.Models.Products;
 using ProductsCRUD.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

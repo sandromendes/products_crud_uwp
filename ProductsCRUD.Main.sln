@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsCRUD.Common", "Prod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsCRUD.Business", "ProductsCRUD.Business\ProductsCRUD.Business.csproj", "{778995FC-4028-4368-8203-255C453A6A93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsCRUD.CrossCutting", "ProductsCRUD.CrossCutting\ProductsCRUD.CrossCutting.csproj", "{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,26 @@ Global
 		{778995FC-4028-4368-8203-255C453A6A93}.Release|x64.Build.0 = Release|x64
 		{778995FC-4028-4368-8203-255C453A6A93}.Release|x86.ActiveCfg = Release|x86
 		{778995FC-4028-4368-8203-255C453A6A93}.Release|x86.Build.0 = Release|x86
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|ARM.Build.0 = Debug|ARM
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|ARM64.Build.0 = Debug|ARM64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|x64.ActiveCfg = Debug|x64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|x64.Build.0 = Debug|x64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|x86.ActiveCfg = Debug|x86
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Debug|x86.Build.0 = Debug|x86
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|ARM.ActiveCfg = Release|ARM
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|ARM.Build.0 = Release|ARM
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|ARM64.ActiveCfg = Release|ARM64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|ARM64.Build.0 = Release|ARM64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|x64.ActiveCfg = Release|x64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|x64.Build.0 = Release|x64
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|x86.ActiveCfg = Release|x86
+		{F7518F00-937C-4AA7-8674-3FC33B0D9DCE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

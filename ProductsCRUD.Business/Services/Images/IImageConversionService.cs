@@ -2,7 +2,7 @@
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ProductsCRUD.Services.Images
+namespace ProductsCRUD.Business.Services.Images
 {
     public interface IImageConversionService
     {

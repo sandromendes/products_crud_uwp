@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Services.Navigation;
-using ProductsCRUD.Util;
+using ProductsCRUD.Business.Services.Navigation;
+using ProductsCRUD.Common.Util;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

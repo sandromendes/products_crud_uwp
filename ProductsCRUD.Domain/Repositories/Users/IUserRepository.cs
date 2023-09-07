@@ -1,9 +1,9 @@
-﻿using ProductsCRUD.Models.Users;
+﻿using ProductsCRUD.Domain.Models.Users;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Repositories.Users
+namespace ProductsCRUD.Domain.Repositories.Users
 {
     public interface IUserRepository : IGenericRepository<User>
     {

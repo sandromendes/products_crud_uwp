@@ -1,6 +1,6 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Util;
+using ProductsCRUD.Common.Util;
 
 namespace ProductsCRUD.ViewModels
 {

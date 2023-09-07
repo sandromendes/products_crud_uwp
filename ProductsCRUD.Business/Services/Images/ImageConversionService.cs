@@ -1,13 +1,13 @@
-﻿using ProductsCRUD.Exceptions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using System.IO;
 using Windows.Storage.Pickers;
+using ProductsCRUD.Common.Exceptions;
 
-namespace ProductsCRUD.Services.Images
+namespace ProductsCRUD.Business.Services.Images
 {
     public class ImageConversionService : IImageConversionService
     {

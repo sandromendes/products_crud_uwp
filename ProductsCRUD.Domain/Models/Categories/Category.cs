@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using ProductsCRUD.Models.Products;
+using ProductsCRUD.Domain.Models.Products;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
-namespace ProductsCRUD.Models.Categories
+namespace ProductsCRUD.Domain.Models.Categories
 {
     public class Category : IEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        [PrimaryKey]
+        public string Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -25,8 +24,11 @@ namespace ProductsCRUD.Models.Categories
 
         public DateTime? UpdatedDate { get; set; }
 
-        [InverseProperty("Category")]
-        public ICollection<Product> Produtos { get; set; }
-        string IEntity.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        [ForeignKey(typeof(Product))]
+        public string ProductId { get; set; }
+
+        [ManyToOne]
+        public Product Product { get; set; }
+
     }
 }

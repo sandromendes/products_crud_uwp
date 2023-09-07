@@ -1,15 +1,15 @@
-﻿using ProductsCRUD.Exceptions;
+﻿using ProductsCRUD.Business.Services.Token;
+using ProductsCRUD.Common.Exceptions;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Domain.Models.Users;
+using ProductsCRUD.Domain.Repositories.Users;
 using ProductsCRUD.Infra.Session;
-using ProductsCRUD.Models.Users;
-using ProductsCRUD.Repositories.Users;
-using ProductsCRUD.Services.Token;
-using ProductsCRUD.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Services.Users
+namespace ProductsCRUD.Business.Services.Users
 {
     public class UserService : IUserService
     {

@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Services.Navigation
+﻿namespace ProductsCRUD.Business.Services.Navigation
 {
     public interface INavigationManager
     {

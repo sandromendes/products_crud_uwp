@@ -1,12 +1,12 @@
 ﻿using Prism.Windows.Navigation;
-using ProductsCRUD.Exceptions;
-using ProductsCRUD.Services.Users;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
+using ProductsCRUD.Business.Services.Users;
+using ProductsCRUD.Common.Exceptions;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
 using System;
 using Windows.UI.Xaml.Controls;
 
-namespace ProductsCRUD.Services.Navigation
+namespace ProductsCRUD.Business.Services.Navigation
 {
     public class NavigationManager : INavigationManager
     {

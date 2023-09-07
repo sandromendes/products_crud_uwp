@@ -1,16 +1,17 @@
-﻿using ProductsCRUD.Models.Products;
+﻿using ProductsCRUD.Business.Models.Products;
+using ProductsCRUD.Domain.Models.Products;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Services.Products
+namespace ProductsCRUD.Business.Services.Products
 {
     public interface IProductService
     {
-        Task AddProduct(Product newProduct);
-        Task<List<Product>> GetProducts();
-        Task<Product> GetProductById(string id);
-        List<Product> GetProductsByFilter(ProductFilterRequest request);
-        void UpdateProduct(Product updatedProduct);
-        void DeleteProduct(string id);
+        Task AddProduct(ProductDto newProductDto);
+        Task<List<ProductDto>> GetProducts();
+        Task<ProductDto> GetProductById(string id);
+        List<ProductDto> GetProductsByFilter(ProductFilterRequest request);
+        Task UpdateProduct(ProductDto updatedProductDto);
+        Task DeleteProduct(string id);
     }
 }

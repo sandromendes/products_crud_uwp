@@ -1,11 +1,11 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Services.Images;
 using ProductsCRUD.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using ProductsCRUD.Services.Products;
-using ProductsCRUD.Models.Products;
+using ProductsCRUD.Business.Services.Products;
+using ProductsCRUD.Business.Services.Images;
+using ProductsCRUD.Business.Models.Products;
 
 namespace ProductsCRUD.Views
 {

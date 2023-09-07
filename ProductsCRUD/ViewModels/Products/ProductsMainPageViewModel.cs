@@ -1,20 +1,20 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Util;
 using System;
 using System.Collections.ObjectModel;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Services.Images;
-using ProductsCRUD.Models.Products;
-using ProductsCRUD.Services.Products;
-using ProductsCRUD.Util.Messages.Products;
+using ProductsCRUD.Domain.Models.Products;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Messages.Products;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Business.Services.Images;
+using ProductsCRUD.Business.Services.Products;
+using ProductsCRUD.Business.Models.Products;
 
 namespace ProductsCRUD.ViewModels
 {
@@ -88,7 +88,7 @@ namespace ProductsCRUD.ViewModels
 
             if (result == ContentDialogResult.Primary)
             {
-                productService.DeleteProduct(id);
+                await productService.DeleteProduct(id);
                 ShowRemoveMessage();
                 LoadProducts(await productService.GetProducts());
             }
@@ -107,7 +107,7 @@ namespace ProductsCRUD.ViewModels
             LoadProducts(filteredProducts);
         }
 
-        private async void LoadProducts(IList<Product> products)
+        private async void LoadProducts(IList<ProductDto> products)
         {
             var emptyProductFile = await StorageFile
                 .GetFileFromApplicationUriAsync(new Uri(PRODUCT_IMAGE_NOT_ADDED));
@@ -119,25 +119,16 @@ namespace ProductsCRUD.ViewModels
             {
                 BitmapImage tempImage;
 
-                if (product.Image == null)
+                if (product.ByteImage == null)
                     tempImage = emptyProductImage;
                 else
                 {
-                    var storageFile = await imageConversionService.ConvertBytesToStorageFile(product.Image, PRODUCT_TEMP_IMAGE_NAME);
+                    var storageFile = await imageConversionService.ConvertBytesToStorageFile(product.ByteImage, PRODUCT_TEMP_IMAGE_NAME);
                     tempImage = await imageConversionService.ConvertFileToBitmapImage(storageFile);
                 }
 
-                var productDto = new ProductDto
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    Price = product.Price,
-                    Image = tempImage,
-                    ByteImage = product.Image
-                };
-
-                Products.Add(productDto);
+                product.Image = tempImage;
+                Products.Add(product);
             }
         }
 

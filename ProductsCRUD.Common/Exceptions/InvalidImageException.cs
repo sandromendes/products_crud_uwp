@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProductsCRUD.Exceptions
+namespace ProductsCRUD.Common.Exceptions
 {
     [Serializable]
     public class InvalidImageException : Exception

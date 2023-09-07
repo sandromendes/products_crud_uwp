@@ -1,8 +1,8 @@
 ﻿using Prism.Mvvm;
-using ProductsCRUD.Models.Users;
-using ProductsCRUD.Services.Users;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
+using ProductsCRUD.Business.Services.Users;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Domain.Models.Users;
 using System;
 using Windows.UI.Xaml.Controls;
 
@@ -76,7 +76,7 @@ namespace ProductsCRUD.ViewModels
                 Email = Email,
                 PhoneNumber = PhoneNumber,
                 CPF = CPF,
-                PasswordHash = EncryptionUtils.Encrypt(Password) // Criptografar a senha aqui
+                PasswordHash = EncryptionUtils.Encrypt(Password)
             };
 
             try

@@ -1,12 +1,13 @@
-﻿using ProductsCRUD.DbContext;
-using ProductsCRUD.Exceptions;
-using ProductsCRUD.Models.Users;
+﻿using ProductsCRUD.Common.Exceptions;
+using ProductsCRUD.Infra.DbContext;
+using ProductsCRUD.Domain.Models.Users;
+using ProductsCRUD.Domain.Repositories.Users;
 using SQLite;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Repositories.Users
+namespace ProductsCRUD.Infra.Repositories.Users
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {

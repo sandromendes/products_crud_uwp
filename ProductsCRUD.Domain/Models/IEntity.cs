@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Models
+﻿namespace ProductsCRUD.Domain.Models
 {
     public interface IEntity
     {

@@ -1,9 +1,9 @@
-﻿using ProductsCRUD.Infra.Session;
-using ProductsCRUD.Models.Users;
-using ProductsCRUD.Services.Token;
-using ProductsCRUD.Util;
+﻿using ProductsCRUD.Business.Services.Token;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Domain.Models.Users;
+using ProductsCRUD.Infra.Session;
 
-namespace ProductsCRUD.Services
+namespace ProductsCRUD.Business.Services
 {
     public class AuthManagerService : IAuthManagerService
     {
@@ -26,6 +26,7 @@ namespace ProductsCRUD.Services
 
         public bool HasPermission(User user)
         {
+            //TODO
             return false;
         }
     }

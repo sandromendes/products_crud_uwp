@@ -1,10 +1,11 @@
-﻿using ProductsCRUD.DbContext;
-using ProductsCRUD.Models;
+﻿using ProductsCRUD.Domain.Models;
+using ProductsCRUD.Domain.Repositories;
+using ProductsCRUD.Infra.DbContext;
 using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Repositories
+namespace ProductsCRUD.Infra.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : IEntity, new()
     {

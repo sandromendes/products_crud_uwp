@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Util.Messages.Users
+﻿namespace ProductsCRUD.Common.Util.Messages.Users
 {
     public static class UserMessages
     {

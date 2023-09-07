@@ -1,13 +1,13 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Exceptions;
-using ProductsCRUD.Models.Products;
-using ProductsCRUD.Services.Images;
-using ProductsCRUD.Services.Products;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Util.Messages.Images;
-using ProductsCRUD.Util.Messages.Products;
+using ProductsCRUD.Business.Models.Products;
+using ProductsCRUD.Business.Services.Images;
+using ProductsCRUD.Business.Services.Products;
+using ProductsCRUD.Common.Exceptions;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Common.Util.Messages.Images;
+using ProductsCRUD.Common.Util.Messages.Products;
 using System;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
@@ -67,15 +67,14 @@ namespace ProductsCRUD.ViewModels
             {
                 imageConversionService.ValidateImage(_imageFile);
 
-                var product = new Product
+                var product = new ProductDto
                 {
                     Name = ProductName,
                     Description = ProductDescription,
                     Price = ProductPrice,
-                    Image = _imageFile != null ? await imageConversionService.ConvertStorageFileToByteArray(_imageFile) : null
+                    ByteImage = _imageFile != null ? await imageConversionService.ConvertStorageFileToByteArray(_imageFile) : null
                 };
 
-                // Chama o serviço para salvar o produto no banco de dados SQLite
                 await productService.AddProduct(product);
                 ShowAddedProductMessage();
                 navigationService.Navigate(PageTokens.ProductsPage.MAIN, null);
@@ -87,7 +86,6 @@ namespace ProductsCRUD.ViewModels
                 return;
             }
 
-            // Limpa os campos após salvar o produto
             ProductName = string.Empty;
             ProductDescription = string.Empty;
             ProductPrice = 0;

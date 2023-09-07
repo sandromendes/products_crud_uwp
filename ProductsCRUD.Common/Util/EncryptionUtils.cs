@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProductsCRUD.Util
+namespace ProductsCRUD.Common.Util
 {
     public static class EncryptionUtils
     {

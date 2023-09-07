@@ -1,9 +1,9 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models.Users;
-using ProductsCRUD.Services.Users;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
+using ProductsCRUD.Business.Services.Users;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Domain.Models.Users;
 using System;
 using Windows.UI.Xaml.Controls;
 

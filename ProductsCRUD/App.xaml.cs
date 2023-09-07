@@ -1,21 +1,23 @@
-﻿using ProductsCRUD.Util;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-using ProductsCRUD.Services.Images;
-using ProductsCRUD.Services.Users;
-using ProductsCRUD.Repositories.Users;
-using ProductsCRUD.DbContext;
-using ProductsCRUD.Services.Products;
 using ProductsCRUD.Repositories.Products;
-using ProductsCRUD.Services.Token;
-using ProductsCRUD.Services;
 using ProductsCRUD.Infra.Session;
 using Prism.Unity.Windows;
 using Microsoft.Practices.Unity;
-using ProductsCRUD.Services.Navigation;
 using Microsoft.Practices.ServiceLocation;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Domain.Repositories.Products;
+using ProductsCRUD.Domain.Repositories.Users;
+using ProductsCRUD.Infra.Repositories.Users;
+using ProductsCRUD.Infra.DbContext;
+using ProductsCRUD.Business.Services.Navigation;
+using ProductsCRUD.Business.Services.Users;
+using ProductsCRUD.Business.Services.Products;
+using ProductsCRUD.Business.Services.Images;
+using ProductsCRUD.Business.Services.Token;
+using ProductsCRUD.Business.Services;
 
 namespace ProductsCRUD
 {

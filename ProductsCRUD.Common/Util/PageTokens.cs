@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Util
+﻿namespace ProductsCRUD.Common.Util
 {
     public static class PageTokens
     {

@@ -1,5 +1,7 @@
-﻿using ProductsCRUD.DbContext;
-using ProductsCRUD.Models.Products;
+﻿using ProductsCRUD.Domain.Models.Products;
+using ProductsCRUD.Domain.Repositories.Products;
+using ProductsCRUD.Infra.DbContext;
+using ProductsCRUD.Infra.Repositories;
 using SQLite;
 using System.Collections.Generic;
 using System.Linq;

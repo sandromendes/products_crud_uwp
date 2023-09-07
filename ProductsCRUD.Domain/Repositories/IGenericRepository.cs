@@ -1,8 +1,8 @@
-﻿using ProductsCRUD.Models;
+﻿using ProductsCRUD.Domain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Repositories
+namespace ProductsCRUD.Domain.Repositories
 {
     public interface IGenericRepository<T> where T : IEntity, new()
     {

@@ -1,10 +1,10 @@
-﻿using ProductsCRUD.Models.Users;
+﻿using ProductsCRUD.Domain.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Services.Users
+namespace ProductsCRUD.Business.Services.Users
 {
     public interface IUserService
     {

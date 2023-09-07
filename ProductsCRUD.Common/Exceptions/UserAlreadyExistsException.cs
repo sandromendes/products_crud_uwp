@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProductsCRUD.Exceptions
+namespace ProductsCRUD.Common.Exceptions
 {
     [Serializable]
     public class UserAlreadyExistsException : Exception

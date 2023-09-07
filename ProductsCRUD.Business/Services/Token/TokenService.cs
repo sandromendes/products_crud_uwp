@@ -3,7 +3,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace ProductsCRUD.Services.Token
+namespace ProductsCRUD.Business.Services.Token
 {
     public class TokenService : ITokenService
     {

@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Services.Token
+﻿namespace ProductsCRUD.Business.Services.Token
 {
     public interface ITokenService
     {

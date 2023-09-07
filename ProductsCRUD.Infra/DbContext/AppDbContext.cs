@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace ProductsCRUD.DbContext
+namespace ProductsCRUD.Infra.DbContext
 {
     public class AppDbContext : IDisposable
     {

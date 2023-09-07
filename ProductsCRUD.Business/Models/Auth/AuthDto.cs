@@ -1,4 +1,4 @@
-﻿namespace ProductsCRUD.Models.Auth
+﻿namespace ProductsCRUD.Business.Models.Auth
 {
     public class AuthDto
     {

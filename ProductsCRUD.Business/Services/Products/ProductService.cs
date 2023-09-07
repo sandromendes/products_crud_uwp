@@ -1,11 +1,13 @@
-﻿using ProductsCRUD.Models.Products;
-using ProductsCRUD.Repositories.Products;
+﻿using ProductsCRUD.Business.Mappers.Products;
+using ProductsCRUD.Business.Models.Products;
+using ProductsCRUD.Domain.Models.Products;
+using ProductsCRUD.Domain.Repositories.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProductsCRUD.Services.Products
+namespace ProductsCRUD.Business.Services.Products
 {
     public class ProductService : IProductService
     {
@@ -16,23 +18,25 @@ namespace ProductsCRUD.Services.Products
             this.productRepository = productRepository;
         }
 
-        public async Task AddProduct(Product newProduct)
+        public async Task AddProduct(ProductDto newProductDto)
         {
-            newProduct.Id = Guid.NewGuid().ToString();
-            await productRepository.Add(newProduct);
+            newProductDto.Id = Guid.NewGuid().ToString();
+
+            await productRepository.Add(ProductMapper.ToEntity(newProductDto));
         }
 
-        public async Task<List<Product>> GetProducts()
+        public async Task<List<ProductDto>> GetProducts()
         {
-            return await productRepository.GetAll();
+            var products = await productRepository.GetAll();
+            return ProductMapper.ToDtoCollection(products).ToList();
         }
 
-        public async Task<Product> GetProductById(string id)
+        public async Task<ProductDto> GetProductById(string id)
         {
-            return await productRepository.Get(id);
+            return ProductMapper.ToDto(await productRepository.Get(id));
         }
 
-        public List<Product> GetProductsByFilter(ProductFilterRequest request)
+        public List<ProductDto> GetProductsByFilter(ProductFilterRequest request)
         {
             var filter = productRepository.GetQueryable();
 
@@ -45,15 +49,15 @@ namespace ProductsCRUD.Services.Products
             if (request.ProductMaxValue != 0)
                 filter = filter.Where(p => p.Price <= request.ProductMaxValue);
 
-            return productRepository.GetProductsByFilter(filter);
+            return ProductMapper.ToDtoCollection(productRepository.GetProductsByFilter(filter)).ToList();
         }
 
-        public async void UpdateProduct(Product updatedProduct)
+        public async Task UpdateProduct(ProductDto updatedProductDto)
         {
-            await productRepository.Update(updatedProduct);
+            await productRepository.Update(ProductMapper.ToEntity(updatedProductDto));
         }
 
-        public async void DeleteProduct(string id)
+        public async Task DeleteProduct(string id)
         {
             await productRepository.Delete(id);
         }

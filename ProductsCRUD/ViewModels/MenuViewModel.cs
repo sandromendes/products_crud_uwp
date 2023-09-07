@@ -1,8 +1,7 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models.Auth;
-using ProductsCRUD.Services.Navigation;
-using ProductsCRUD.Util;
+using ProductsCRUD.Business.Services.Navigation;
+using ProductsCRUD.Common.Util;
 using Windows.UI.Xaml.Controls;
 
 namespace ProductsCRUD.ViewModels

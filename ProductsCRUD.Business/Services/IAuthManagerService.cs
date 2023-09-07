@@ -1,6 +1,6 @@
-﻿using ProductsCRUD.Models.Users;
+﻿using ProductsCRUD.Domain.Models.Users;
 
-namespace ProductsCRUD.Services
+namespace ProductsCRUD.Business.Services
 {
     public interface IAuthManagerService
     {

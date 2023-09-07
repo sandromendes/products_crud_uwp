@@ -1,11 +1,11 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models.Products;
-using ProductsCRUD.Services.Images;
-using ProductsCRUD.Services.Products;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Util.Messages.Products;
+using ProductsCRUD.Business.Models.Products;
+using ProductsCRUD.Business.Services.Images;
+using ProductsCRUD.Business.Services.Products;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Common.Util.Messages.Products;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,24 +38,15 @@ namespace ProductsCRUD.ViewModels
             INavigationService navigationService,
             IImageConversionService imageConversionService)
         {
-            UpdatedProduct = new ProductDto(); // Crie um novo produto ao inicializar a ViewModel
+            UpdatedProduct = new ProductDto();
             this.productService = productService;
             this.navigationService = navigationService;
             this.imageConversionService = imageConversionService;
         }
 
-        public void UpdateProduct()
+        public async void UpdateProduct()
         {
-            var product = new Product
-            {
-                Id = UpdatedProduct.Id,
-                Name = UpdatedProduct.Name,
-                Description = UpdatedProduct.Description,
-                Price = UpdatedProduct.Price,
-                Image = UpdatedProduct.ByteImage,
-            };
-
-            productService.UpdateProduct(product);
+            await productService.UpdateProduct(UpdatedProduct);
             ShowSaveMessage();
             navigationService.Navigate(PageTokens.ProductsPage.MAIN, null);
         }

@@ -1,11 +1,11 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using ProductsCRUD.Models.Users;
-using ProductsCRUD.Services;
-using ProductsCRUD.Services.Users;
-using ProductsCRUD.Util;
-using ProductsCRUD.Util.Labels;
-using ProductsCRUD.Util.Messages.Users;
+using ProductsCRUD.Business.Services;
+using ProductsCRUD.Business.Services.Users;
+using ProductsCRUD.Common.Util;
+using ProductsCRUD.Common.Util.Labels;
+using ProductsCRUD.Common.Util.Messages.Users;
+using ProductsCRUD.Domain.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
