@@ -120,13 +120,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Models\Categories\Category.cs" />
+    <Compile Include="Models\Categories\ProductCategory.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\ProductFilterRequest.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Categories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Categories\IProductCategoryRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\Products\IProductRepository.cs" />
     <Compile Include="Repositories\Users\IUserRepository.cs" />

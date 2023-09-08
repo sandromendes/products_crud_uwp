@@ -2,7 +2,7 @@
 
 namespace ProductsCRUD.Domain.Repositories.Categories
 {
-    public interface ICategoryRepository : IGenericRepository<Category>
+    public interface IProductCategoryRepository : IGenericRepository<ProductCategory>
     {
     }
 }

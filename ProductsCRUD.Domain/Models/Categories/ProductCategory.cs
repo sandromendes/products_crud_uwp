@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ProductsCRUD.Domain.Models.Products;
 using SQLite;
@@ -6,7 +7,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace ProductsCRUD.Domain.Models.Categories
 {
-    public class Category : IEntity
+    public class ProductCategory : IEntity
     {
         [PrimaryKey]
         public string Id { get; set; }
@@ -24,11 +25,8 @@ namespace ProductsCRUD.Domain.Models.Categories
 
         public DateTime? UpdatedDate { get; set; }
 
-        [ForeignKey(typeof(Product))]
-        public string ProductId { get; set; }
 
-        [ManyToOne]
-        public Product Product { get; set; }
-
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public IList<Product> Products { get; set; }
     }
 }

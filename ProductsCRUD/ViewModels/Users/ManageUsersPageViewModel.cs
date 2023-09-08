@@ -1,5 +1,6 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using ProductsCRUD.Business.Models.Users;
 using ProductsCRUD.Business.Services;
 using ProductsCRUD.Business.Services.Users;
 using ProductsCRUD.Common.Util;
@@ -15,8 +16,8 @@ namespace ProductsCRUD.ViewModels
 {
     public class ManageUsersPageViewModel : ViewModelBase
     {
-        private ObservableCollection<User> _users;
-        public ObservableCollection<User> Users
+        private ObservableCollection<UserDto> _users;
+        public ObservableCollection<UserDto> Users
         {
             get { return _users; }
             set { SetProperty(ref _users, value); }
@@ -33,7 +34,7 @@ namespace ProductsCRUD.ViewModels
             this.navigationService = navigationService;
             this.authManagerService = authManagerService;
             this.userService = userService;
-            Users = new ObservableCollection<User>();
+            Users = new ObservableCollection<UserDto>();
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

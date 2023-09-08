@@ -6,17 +6,25 @@ using SQLite;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ProductsCRUD.Infra.Repositories.Users
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly SQLiteAsyncConnection database;
+        private readonly SQLiteAsyncConnection databaseAsync;
+        private readonly SQLiteConnection database;
 
         public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            database = appDbContext.AsyncConnection;
-            database.CreateTableAsync<User>();
+            databaseAsync = appDbContext.AsyncConnection;
+            database = appDbContext.Connection;
+            Task.Run(() => databaseAsync.CreateTableAsync<User>()).Wait();
+        }
+
+        public IQueryable<User> GetQueryable()
+        {
+            return database.Table<User>().AsQueryable();
         }
 
         public async new Task Add(User user)
@@ -25,7 +33,7 @@ namespace ProductsCRUD.Infra.Repositories.Users
             if (userDb == null)
             {
                 user.Id = Guid.NewGuid().ToString();
-                await database.InsertAsync(user);
+                await databaseAsync.InsertAsync(user);
             }
             else
             {
@@ -40,24 +48,47 @@ namespace ProductsCRUD.Infra.Repositories.Users
             }
         }
 
-        public async Task<User> Get(Expression<Func<User, bool>> predicate)
+        public async Task<User> Get(User user)
         {
-            return await database.Table<User>().Where(predicate).FirstOrDefaultAsync();
+            var query = BuildQuery(user);
+
+            return await Task.Run(() => query.FirstOrDefault());
+        }
+
+        private IQueryable<User> BuildQuery(User user)
+        {
+            var query = GetQueryable();
+
+            if (user.Id != null && user.Id != string.Empty)
+                query = query.Where(u => u.Id == user.Id);
+
+            if (user.FirstName != null && user.FirstName != string.Empty)
+                query = query.Where(u => u.FirstName == user.FirstName);
+
+            if (user.LastName != null && user.LastName != string.Empty)
+                query = query.Where(u => u.LastName == user.LastName);
+
+            if (user.CPF != null && user.CPF != string.Empty)
+                query = query.Where(u => u.CPF == user.CPF);
+
+            if (user.Email != null && user.Email != string.Empty)
+                query = query.Where(u => u.Email == user.Email);
+            return query;
         }
 
         public async Task<User> GetUserByEmail(string email)
         {
-            return await database.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
+            return await databaseAsync.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> GetUserByCompositeKey(User user)
         {
-            return await database.Table<User>().FirstOrDefaultAsync(u => u.Id == user.Id || u.Email == user.Email || u.CPF == user.CPF);
+            return await databaseAsync.Table<User>().FirstOrDefaultAsync(u => u.Id == user.Id || u.Email == user.Email || u.CPF == user.CPF);
         }
 
-        public async Task<bool> Exists(Expression<Func<User, bool>> predicate)
+        public async Task<bool> Exists(User user)
         {
-            return await database.Table<User>().FirstOrDefaultAsync(predicate) != null;
+            return await Get(user) != null;
         }
     }
 }

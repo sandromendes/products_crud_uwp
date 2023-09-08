@@ -122,7 +122,7 @@
   <ItemGroup>
     <Compile Include="DbContext\AppDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Categories\CategoryRepository.cs" />
+    <Compile Include="Repositories\Categories\ProductCategoryRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Repositories\Users\UserRepository.cs" />

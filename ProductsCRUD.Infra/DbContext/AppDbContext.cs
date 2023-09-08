@@ -11,7 +11,7 @@ namespace ProductsCRUD.Infra.DbContext
 
         public AppDbContext()
         {
-            string dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Market.db");
+            string dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "PointOfSale.db");
             _connection = new SQLiteConnection(dbPath);
             _asyncConnection = new SQLiteAsyncConnection(dbPath);
         }

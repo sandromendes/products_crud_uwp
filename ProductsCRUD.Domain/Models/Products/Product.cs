@@ -1,7 +1,6 @@
 ﻿using ProductsCRUD.Domain.Models.Categories;
 using SQLite;
-using SQLiteNetExtensions.Attributes;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using MaxLengthAttribute = SQLite.MaxLengthAttribute;
 
 namespace ProductsCRUD.Domain.Models.Products
@@ -18,7 +17,7 @@ namespace ProductsCRUD.Domain.Models.Products
         public double Price { get; set; }
         public byte[] Image { get; set; }
 
-        [OneToMany]
-        public ICollection<Category> Categories { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

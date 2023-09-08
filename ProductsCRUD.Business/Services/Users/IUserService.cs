@@ -1,4 +1,4 @@
-﻿using ProductsCRUD.Domain.Models.Users;
+﻿using ProductsCRUD.Business.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -8,17 +8,17 @@ namespace ProductsCRUD.Business.Services.Users
 {
     public interface IUserService
     {
-        void RegisterUser(User user);
+        void RegisterUser(UserDto user);
         bool TryLogin(string email, string password, out bool isSuccess);
         bool TryLoginWithUserName(string userName, string password, out bool isSuccess);
-        bool Exists(Expression<Func<User, bool>> predicate);
+        bool Exists(UserDto userDto);
         void Logout();
-        User GetUserByEmail(string email);
-        Task<List<User>> GetAllUsers();
-        Task<User> GetUserById(string id);
-        User GetUser(Expression<Func<User, bool>> predicate);
+        UserDto GetUserByEmail(string email);
+        Task<List<UserDto>> GetAllUsers();
+        Task<UserDto> GetUserById(string id);
+        UserDto GetUser(UserDto userDto);
         void RemoveUser(string userId);
-        void UpdateUser(User user);
+        void UpdateUser(UserDto user);
         void CreateSuperUserIfDoesntExists();
     }
 }

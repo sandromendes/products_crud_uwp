@@ -1,12 +1,12 @@
-﻿using ProductsCRUD.Business.Services.Token;
+﻿using ProductsCRUD.Business.Mappers.Users;
+using ProductsCRUD.Business.Models.Users;
+using ProductsCRUD.Business.Services.Token;
 using ProductsCRUD.Common.Exceptions;
 using ProductsCRUD.Common.Util;
-using ProductsCRUD.Domain.Models.Users;
 using ProductsCRUD.Domain.Repositories.Users;
 using ProductsCRUD.Infra.Session;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsCRUD.Business.Services.Users
@@ -26,34 +26,36 @@ namespace ProductsCRUD.Business.Services.Users
             this.sessionCache = sessionCache;
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<UserDto>> GetAllUsers()
         {
-            return await userRepository.GetAll();
+            return UserMapper.ToDtoCollection(await userRepository.GetAll()).ToList();
         }
 
-        public async Task<User> GetUserById(string id)
+        public async Task<UserDto> GetUserById(string id)
         {
-            return await userRepository.Get(id);
+            return UserMapper.ToDto(await userRepository.Get(id));
         }
 
-        public User GetUserByEmail(string email)
+        public UserDto GetUserByEmail(string email)
         {
-            return Task.Run(() => userRepository.GetUserByEmail(email)).Result;
+            return UserMapper.ToDto(Task.Run(() => userRepository.GetUserByEmail(email)).Result);
         }
 
-        public User GetUser(Expression<Func<User, bool>> predicate)
+        public UserDto GetUser(UserDto dto)
         {
-            return Task.Run(() => userRepository.Get(predicate)).Result;
+            var entity = UserMapper.ToEntity(dto);
+            return UserMapper.ToDto(Task.Run(() => userRepository.Get(entity)).Result);
         }
 
-        public bool Exists(Expression<Func<User, bool>> predicate)
+        public bool Exists(UserDto dto)
         {
-            return Task.Run(() => userRepository.Exists(predicate)).Result;
+            var entity = UserMapper.ToEntity(dto);
+            return Task.Run(() => userRepository.Exists(entity)).Result;
         }
 
-        public void RegisterUser(User user)
+        public void RegisterUser(UserDto user)
         {
-            userRepository.Add(user);
+            userRepository.Add(UserMapper.ToEntity(user));
         }
 
         public void RemoveUser(string userId)
@@ -61,14 +63,14 @@ namespace ProductsCRUD.Business.Services.Users
             userRepository.Delete(userId);
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(UserDto user)
         {
-            userRepository.Update(user);
+            userRepository.Update(UserMapper.ToEntity(user));
         }
 
         public bool TryLoginWithUserName(string userName, string password, out bool isSuccess)
         {
-            var user = GetUser(u => u.FirstName == userName);
+            var user = GetUser(new UserDto(userName));
 
             return TryLogin(user.Email, password, out isSuccess);
         }
@@ -108,15 +110,15 @@ namespace ProductsCRUD.Business.Services.Users
 
         public void CreateSuperUserIfDoesntExists()
         {
-            if(!Exists(a => a.FirstName == "admin"))
+            if(!Exists(new UserDto("admin")))
             {
-                var user = new User
+                var user = new UserDto
                 {
                     CPF = string.Empty,
                     Email = "admin@admin",
                     FirstName = "admin",
                     LastName = "admin",
-                    PasswordHash = EncryptionUtils.Encrypt("superuser"),
+                    Password = EncryptionUtils.Encrypt("superuser"),
                     PhoneNumber = string.Empty
                 };
 

@@ -18,6 +18,8 @@ using ProductsCRUD.Business.Services.Products;
 using ProductsCRUD.Business.Services.Images;
 using ProductsCRUD.Business.Services.Token;
 using ProductsCRUD.Business.Services;
+using ProductsCRUD.Domain.Repositories.Categories;
+using ProductsCRUD.Infra.Repositories.Categories;
 
 namespace ProductsCRUD
 {
@@ -60,6 +62,7 @@ namespace ProductsCRUD
             RegisterTypeIfMissing(typeof(IAuthManagerService), typeof(AuthManagerService), true);
             RegisterTypeIfMissing(typeof(INavigationManager), typeof(NavigationManager), true);
             
+            RegisterTypeIfMissing(typeof(IProductCategoryRepository), typeof(ProductCategoryRepository), true);
             RegisterTypeIfMissing(typeof(IProductRepository), typeof(ProductRepository), true);
             RegisterTypeIfMissing(typeof(IUserRepository), typeof(UserRepository), true);
 

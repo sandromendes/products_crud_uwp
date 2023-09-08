@@ -1,9 +1,9 @@
 ﻿using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using ProductsCRUD.Business.Models.Users;
 using ProductsCRUD.Business.Services.Users;
 using ProductsCRUD.Common.Util;
 using ProductsCRUD.Common.Util.Labels;
-using ProductsCRUD.Domain.Models.Users;
 using System;
 using Windows.UI.Xaml.Controls;
 
@@ -45,7 +45,7 @@ namespace ProductsCRUD.ViewModels
         public void Login()
         {
             bool isSuccess;
-            User user = null;
+            UserDto user = null;
             if (UserLogin.Contains("@"))
             {
                 userService.TryLogin(UserLogin, Password, out isSuccess);
@@ -54,7 +54,7 @@ namespace ProductsCRUD.ViewModels
             else
             {
                 userService.TryLoginWithUserName(UserLogin, Password, out isSuccess);
-                user = userService.GetUser(u => u.FirstName == UserLogin);
+                user = userService.GetUser(new UserDto(UserLogin));
             }
 
             if (isSuccess)

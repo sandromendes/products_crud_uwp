@@ -18,7 +18,7 @@ namespace ProductsCRUD.Repositories.Products
         {
             databaseAsync = appDbContext.AsyncConnection;
             database = appDbContext.Connection;
-            databaseAsync.CreateTableAsync<Product>();
+            Task.Run(() => databaseAsync.CreateTableAsync<Product>()).Wait();
         }
 
         public async new Task Add(Product product)

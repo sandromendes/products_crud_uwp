@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using ProductsCRUD.Business.Models.Users;
 using ProductsCRUD.Business.Services.Users;
 using ProductsCRUD.Common.Util;
 using ProductsCRUD.Common.Util.Labels;
@@ -69,14 +70,14 @@ namespace ProductsCRUD.ViewModels
 
         public void RegisterUser()
         {
-            var user = new User
+            var user = new UserDto
             {
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,
                 PhoneNumber = PhoneNumber,
                 CPF = CPF,
-                PasswordHash = EncryptionUtils.Encrypt(Password)
+                Password = EncryptionUtils.Encrypt(Password)
             };
 
             try
